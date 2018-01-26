@@ -40,3 +40,6 @@ ASK CLI will create the skill and the lambda function for you. The Lambda functi
 	```bash
 	$ ask deploy
 	```
+
+### Testing needs to be enabled in the Developer Portal after deployment
+### Render Template directive also needs to be turned on under 'Skill Information'?
