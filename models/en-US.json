@@ -1,0 +1,217 @@
+{
+   "interactionModel":{
+      "languageModel":{
+         "types":[
+            {
+               "name":"berryTypes",
+               "values":[
+                  {
+                     "id":null,
+                     "name":{
+                        "value":"strawberry",
+                        "synonyms":[
+
+                        ]
+                     }
+                  },
+                  {
+                     "id":null,
+                     "name":{
+                        "value":"blueberry",
+                        "synonyms":[
+
+                        ]
+                     }
+                  },
+                  {
+                     "id":null,
+                     "name":{
+                        "value":"elderberry",
+                        "synonyms":[
+
+                        ]
+                     }
+                  },
+                  {
+                     "id":null,
+                     "name":{
+                        "value":"gooseberry",
+                        "synonyms":[
+
+                        ]
+                     }
+                  },
+                  {
+                     "id":null,
+                     "name":{
+                        "value":"cranberry",
+                        "synonyms":[
+
+                        ]
+                     }
+                  },
+                  {
+                     "id":null,
+                     "name":{
+                        "value":"huckleberry",
+                        "synonyms":[
+
+                        ]
+                     }
+                  },
+                  {
+                     "id":null,
+                     "name":{
+                        "value":"hilberry",
+                        "synonyms":[
+
+                        ]
+                     }
+                  },
+                  {
+                     "id":null,
+                     "name":{
+                        "value":"gojiberry",
+                        "synonyms":[
+
+                        ]
+                     }
+                  }
+               ]
+            }
+         ],
+         "intents":[
+            {
+               "name":"AMAZON.CancelIntent",
+               "samples":[
+
+               ]
+            },
+            {
+               "name":"AMAZON.HelpIntent",
+               "samples":[
+
+               ]
+            },
+            {
+               "name":"AMAZON.MoreIntent",
+               "samples":[
+
+               ]
+            },
+            {
+               "name":"AMAZON.NavigateSettingsIntent",
+               "samples":[
+
+               ]
+            },
+            {
+               "name":"AMAZON.NextIntent",
+               "samples":[
+
+               ]
+            },
+            {
+               "name":"AMAZON.NoIntent",
+               "samples":[
+
+               ]
+            },
+            {
+               "name":"AMAZON.PageDownIntent",
+               "samples":[
+
+               ]
+            },
+            {
+               "name":"AMAZON.PageUpIntent",
+               "samples":[
+
+               ]
+            },
+            {
+               "name":"AMAZON.PreviousIntent",
+               "samples":[
+
+               ]
+            },
+            {
+               "name":"AMAZON.ScrollDownIntent",
+               "samples":[
+
+               ]
+            },
+            {
+               "name":"AMAZON.ScrollLeftIntent",
+               "samples":[
+
+               ]
+            },
+            {
+               "name":"AMAZON.ScrollRightIntent",
+               "samples":[
+
+               ]
+            },
+            {
+               "name":"AMAZON.ScrollUpIntent",
+               "samples":[
+
+               ]
+            },
+            {
+               "name":"AMAZON.StopIntent",
+               "samples":[
+
+               ]
+            },
+            {
+               "name":"AMAZON.YesIntent",
+               "samples":[
+
+               ]
+            },
+            {
+               "name":"BackToListIntent",
+               "samples":[
+                  "go back to list",
+                  "take me back to the list",
+                  "i want to go back to the list",
+                  "show me the other berries",
+                  "show me the other fruit",
+                  "what fruit do you have",
+                  "what berries are there"
+               ],
+               "slots":[
+
+               ]
+            },
+            {
+               "name":"ElementSelected",
+               "samples":[
+                  "i choose {fruitValue}",
+                  "{fruitValue}"
+               ],
+               "slots":[
+                  {
+                     "name":"fruitValue",
+                     "type":"berryTypes"
+                  }
+               ]
+            },
+            {
+               "name":"MoreInfoIntent",
+               "samples":[
+                  "keep going",
+                  "tell me more",
+                  "read out the rest"
+               ],
+               "slots":[
+
+               ]
+            }
+         ],
+         "invocationName":"berry bible"
+      }
+   }
+}
