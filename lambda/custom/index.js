@@ -136,7 +136,7 @@ const handlers = {
             
             for (var i = 0 ; i < berryArray.length; i++) //Find out which berry
             {
-                if (userFruit == berryArray[i].name)
+                if (userFruit.toLowerCase() == berryArray[i].name.toLowerCase())
                 {
                     this.attributes['currentBerryArrayIndex'] = i;
                     index = i;
@@ -144,19 +144,10 @@ const handlers = {
                 }
             }
             
-            if (!index) //If we don't have information about their chosen slot value..
-            {
-                var speechOutput = 'I am sorry. I did not quite get that one. Could you try again?';
-                var reprompt = 'Which berry would you like to hear about?';
-                
-                this.response.speak(speechOutput);
-                this.response.listen(reprompt);
-                this.emit(':responseReady');
-            }
+            if (index) //If we don't have information about their chosen slot value..
+                showSpecificFruitInfo.call(this, index, berryArray);
             else
-            {
                 handleUnknown.call(this);
-            }
         }
         else //If this intent is hit without the needed data 
         {
