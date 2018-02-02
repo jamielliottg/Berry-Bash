@@ -9,10 +9,10 @@ const makeRichText = Alexa.utils.TextUtils.makeRichText;
 
 /////////Code data (fruit info, random text, etc)//////////////////////////////////////////////////////////////////////////
 var skillName = 'Berry Bash';
-
-var adjectives = ['craziest', 'hippest', 'tastiest', 'sweetest', 'greatest', 'cheekiest', 'spiciest', 'greatest', 'smartest', 'best'];
 var skillGameName = 'Berry Buzz';
 var skillDictionaryName = 'Berry Book';
+
+var adjectives = ['craziest', 'hippest', 'tastiest', 'sweetest', 'greatest', 'cheekiest', 'spiciest', 'greatest', 'smartest', 'best'];
 
 var positiveSpeechconArray = ['bang', 'boing', 'kaboom', 'mazel tov', 'oh snap', 'well done'];
 var negativeSpeechconArray = ['wah wah', 'uh oh', 'tosh', 'quack', 'oof', 'oh dear'];
