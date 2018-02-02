@@ -59,14 +59,7 @@ There are two parts to an Alexa skill.  The first part is the [Voice User Interf
 
 10. Click on the "Dashboard" button.
 
-11. Add some more sample utterances for your newly generated intents.  These are the things a user would say to make a specific intent happen.  Here are a few examples:
-
-    * I want some supper
-    * Lunch time
-    * Time for breakfast
-    * I'm hungry
-
-    ![](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/1-10-sample-utterances._TTH_.png)
+11. Add some more sample utterances for your newly generated intents if you like.  These are the things a user would say to make a specific intent happen. 
 
 12. Click on the **Save Model** button, and then click on the **Build Model** button.
 
