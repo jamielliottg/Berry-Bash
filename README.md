@@ -27,10 +27,10 @@ Be sure to take a look at the [Additional Resources](#additional-resources) at t
 ### Usage
 
 ```text
-Alexa, open Berry Bible.
-	>> Welcome to Berry Bible. Would you like to hear about some berries?
+Alexa, open Berry Bash.
+	>> Welcome to Berry Bash
 
-Alexa, ask Berry Bible to tell me about strawberries
+Alexa, ask Berry Bash to tell me about strawberries
 ```
 
 ### Repository Contents
@@ -53,13 +53,13 @@ Alexa, ask Berry Bible to tell me about strawberries
 1. Clone the repository.
 
 	```bash
-	$ git clone https://github.com/jamielliottg/BerryBible.git
+	$ git clone https://github.com/jamielliottg/Berry-Bash.git
 	```
 
 2. Initiatialize the [ASK CLI](https://developer.amazon.com/docs/smapi/quick-start-alexa-skills-kit-command-line-interface.html) by Navigating into the repository and running npm command: `ask init`. Follow the prompts.
 
 	```bash
-	$ cd BerryBible
+	$ cd Berry-Bash
 	$ ask init
 	```
 
@@ -88,7 +88,7 @@ ASK CLI will create the skill and the lambda function for you. The Lambda functi
 2. Simulate verbal interaction with your skill through the command line using the following example:
 
 	```bash
-	 $ ask simulate -l en-GB -t "open berry bible"
+	 $ ask simulate -l en-GB -t "open berry bash"
 
 	 ✓ Simulation created for simulation id: ***
 	◡ Waiting for simulation response{
@@ -99,7 +99,7 @@ ASK CLI will create the skill and the lambda function for you. The Lambda functi
 3. Once the "Test" switch is enabled, your skill can be tested on devices associated with the developer account as well. Speak to Alexa from any enabled device, from your browser at [echosim.io](https://echosim.io/welcome), or through your Amazon Mobile App and say:
 
 	```text
-	Alexa, open berry bible
+	Alexa, open berry bash
 	```
 
 
