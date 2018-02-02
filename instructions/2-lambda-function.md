@@ -44,24 +44,24 @@ In the [first step of this guide](./1-voice-user-interface.md), we built the Voi
 
 10. Once you have selected Alexa Skills Kit, scroll down. Under Configure triggers, select Enable for Skill ID verification. A skill ID Edit box should appear. We will now retrieve your Skill ID from the developer portal.
 
-10.5. We now need to update the function to use the latest Node JS SDK from the main Alexa Github [here](https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs) (unfortunately; the one in our blueprint is out of date at the time of writing this). Select 'Clone or download', and then 'Download Zip'. Unzip that folder. Back in the lambda function, select 'Actions', 'Export Function', and then 'Download deployment package'. You now have your function downloaded and the new SDK. Once both are unzipped, you want to go into the SDK folder, into 'alexa-skills-kit-sdk-for-nodejs-master', and copy everything there into your your_project_folder/node_modules\alexa-sdk (replacing everything there). Thats it! Once done, zip up everything in the root of your project folder (ensuring index.js is here - this is your root), and upload it back to your lambda function by changing 'Code entry type' to 'Upload a zip'. Once you select your newly zipped up project, hit save, and your project should now be updated to use the latest SDK + you can edit it right in your browser! Cool right?
+11. We now need to update the function to use the latest Node JS SDK from the main Alexa Github [here](https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs) (unfortunately; the one in our blueprint is out of date at the time of writing this). Select 'Clone or download', and then 'Download Zip'. Unzip that folder. Back in the lambda function, select 'Actions', 'Export Function', and then 'Download deployment package'. You now have your function downloaded and the new SDK. Once both are unzipped, you want to go into the SDK folder, into 'alexa-skills-kit-sdk-for-nodejs-master', and copy everything there into your your_project_folder/node_modules\alexa-sdk (replacing everything there). Thats it! Once done, zip up everything in the root of your project folder (ensuring index.js is here - this is your root), and upload it back to your lambda function by changing 'Code entry type' to 'Upload a zip'. Once you select your newly zipped up project, hit save, and your project should now be updated to use the latest SDK + you can edit it right in your browser! Cool right?
 
-11. Now lets secure this lambda function, so that it can only be invoked by your skill. Open up the [developer portal](https://developer.amazon.com/edw/home.html#/skills) and select your skill from the list. You mays till have a browser tab open if you started at the beginning of this tutorial.
+12. Now lets secure this lambda function, so that it can only be invoked by your skill. Open up the [developer portal](https://developer.amazon.com/edw/home.html#/skills) and select your skill from the list. You mays till have a browser tab open if you started at the beginning of this tutorial.
 
-12. Click the Skill Information Link.
+13. Click the Skill Information Link.
 
     <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/3-2-configuration-tab._TTH_.png" />
 
-13. Copy the **Application ID** provided in the main window. This is also known as a skill ID, and is unique to your skill.
+14. Copy the **Application ID** provided in the main window. This is also known as a skill ID, and is unique to your skill.
 
-14. Return back to your lambda function in the. You may already have this browser tab open from **Step 11**. Otherwise, open the lambda console by clicking here: [AWS Console](https://console.aws.amazon.com/lambda/home?region=us-east-1#/functions) and selecting the appropriate function. Scroll down to **Configure triggers**, paste the Skill ID in the Skill ID edit box.
+15. Return back to your lambda function in the. You may already have this browser tab open from **Step 11**. Otherwise, open the lambda console by clicking here: [AWS Console](https://console.aws.amazon.com/lambda/home?region=us-east-1#/functions) and selecting the appropriate function. Scroll down to **Configure triggers**, paste the Skill ID in the Skill ID edit box.
 
-15. Click the **Add** button. Then click the **Save** button in the top right. You should see a green success message at the top of your screen. Now, click the box that has the Lambda icon followed by the name of your function and scroll down to the field called "Function code".
+16. Click the **Add** button. Then click the **Save** button in the top right. You should see a green success message at the top of your screen. Now, click the box that has the Lambda icon followed by the name of your function and scroll down to the field called "Function code".
 
-16.  **Copy and paste the [provided code](../lambda/custom/index.js) into the Lambda function code box.**  Delete the contents of the code box, and paste the contents of the new code.
+17.  **Copy and paste the [provided code](../lambda/custom/index.js) into the Lambda function code box.**  Delete the contents of the code box, and paste the contents of the new code.
 Click "Save".
 
-17. **Scroll to the top of the page. The ARN value for this Lambda function should be in the top right corner. Copy this value for use in the next section of the guide.**
+18. **Scroll to the top of the page. The ARN value for this Lambda function should be in the top right corner. Copy this value for use in the next section of the guide.**
 
     <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/quiz-game/2-12-copy-ARN._TTH_.png" />  <!--TODO: THIS IMAGE NEEDS TO BE CUSTOMIZED FOR YOUR SKILL TEMPLATE. -->
 
