@@ -44,6 +44,8 @@ In the [first step of this guide](./1-voice-user-interface.md), we built the Voi
 
 10. Once you have selected Alexa Skills Kit, scroll down. Under Configure triggers, select Enable for Skill ID verification. A skill ID Edit box should appear. We will now retrieve your Skill ID from the developer portal.
 
+11. We now need to update the function to use the latest Node JS sdk from 
+
 11. Now lets secure this lambda function, so that it can only be invoked by your skill. Open up the [developer portal](https://developer.amazon.com/edw/home.html#/skills) and select your skill from the list. You mays till have a browser tab open if you started at the beginning of this tutorial.
 
 12. Click the Skill Information Link.
@@ -56,7 +58,7 @@ In the [first step of this guide](./1-voice-user-interface.md), we built the Voi
 
 15. Click the **Add** button. Then click the **Save** button in the top right. You should see a green success message at the top of your screen. Now, click the box that has the Lambda icon followed by the name of your function and scroll down to the field called "Function code".
 
-16.  **Copy and paste the [provided code](https://github.com/alexa/skill-sample-nodejs-city-guide/blob/master/lambda/custom/index.js) into the Lambda function code box.**  We have provided the code for this skill on [GitHub](https://github.com/alexa/skill-sample-nodejs-city-guide/blob/master/lambda/custom/index.js).  Delete the contents of the code box, and paste the contents of the new code.
+16.  **Copy and paste the [provided code](../lambda/custom/index.js) into the Lambda function code box.**  Delete the contents of the code box, and paste the contents of the new code.
 Click "Save".
 
 17. **Scroll to the top of the page. The ARN value for this Lambda function should be in the top right corner. Copy this value for use in the next section of the guide.**
