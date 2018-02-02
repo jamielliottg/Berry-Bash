@@ -1,4 +1,4 @@
-# Build An Alexa Berry Bible Skill
+# Build An Alexa Berry Bash Skill
 <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/fact/header._TTH_.png" />
 
 [![Voice User Interface](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/1-off._TTH_.png)](1-voice-user-interface.md)[![Lambda Function](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/2-off._TTH_.png)](2-lambda-function.md)[![Connect VUI to Code](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/3-off._TTH_.png)](3-connect-vui-to-code.md)[![Testing](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/4-off._TTH_.png)](4-testing.md)[![Customization](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/5-off._TTH_.png)](5-customization.md)[![Publication](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/navigation/6-off._TTH_.png)](6-publication.md)
@@ -18,14 +18,15 @@
 *  Simple graphical editing tool
 
 ## What Your Skill Will Do
-We all like to eat some fruit every now and then, but sometimes, we want to know more about the tasty treats, be it random information or even specific nutritional facts (hear me out). Does it have too much sugar? How many calories does it have? Most importantly, is it tasty?
+We all like to eat some fruit every now and then, but sometimes, we want to know more about the tasty treats, be it random information or even specific nutritional facts. On other days, we want to be tested on such things. Crazy right?
 
-You may have already produced something like this, but using the Berry Bible skill, you can now create an even richer experience through multi modal design which really provide some very sleek visual elements when needed to your voice first alexa skill. In this guide, we will demonstrate the use of:
+You may have already produced something like this, but using the Berry Bash skill, you can now create an even richer experience through multi modal design which really provide some very sleek visual elements when needed to your voice first alexa skill. In this guide, we will demonstrate the use of:
 * Body Templates
-* Font sizes
 * List Templates
+* Font manipulation
 * Action Text
 * Screen Interaction
+* Voice Interaction (with on screen elements)
 
 # Let's Get Started
 
