@@ -44,7 +44,7 @@ In the [first step of this guide](./1-voice-user-interface.md), we built the Voi
 
 10. Once you have selected Alexa Skills Kit, scroll down. Under Configure triggers, select Enable for Skill ID verification. A skill ID Edit box should appear. We will now retrieve your Skill ID from the developer portal.
 
-11. We now need to update the function to use the latest Node JS sdk from 
+10.5. We now need to update the function to use the latest Node JS SDK from the main Alexa Github [here](https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs) (unfortunately; the one in our blueprint is out of date at the time of writing this). Select 'Clone or download', and then 'Download Zip'. Unzip that folder. Back in the lambda function, select 'Actions', 'Export Function', and then 'Download deployment package'. You now have your function downloaded and the new SDK. Once both are unzipped, you want to go into the SDK folder, into 'alexa-skills-kit-sdk-for-nodejs-master', and copy everything there into your your_project_folder/node_modules\alexa-sdk (replacing everything there). Thats it! Once done, zip up everything in the root of your project folder (ensuring index.js is here - this is your root), and upload it back to your lambda function by changing 'Code entry type' to 'Upload a zip'. Once you select your newly zipped up project, hit save, and your project should now be updated to use the latest SDK + you can edit it right in your browser! Cool right?
 
 11. Now lets secure this lambda function, so that it can only be invoked by your skill. Open up the [developer portal](https://developer.amazon.com/edw/home.html#/skills) and select your skill from the list. You mays till have a browser tab open if you started at the beginning of this tutorial.
 
