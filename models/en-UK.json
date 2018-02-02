@@ -7,6 +7,20 @@
           {
             "id": null,
             "name": {
+              "value": "raspberries",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "blackberries",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
               "value": "strawberries",
               "synonyms": []
             }
@@ -49,7 +63,7 @@
           {
             "id": null,
             "name": {
-              "value": "hilberries",
+              "value": "bilberries",
               "synonyms": []
             }
           },
@@ -98,6 +112,10 @@
       },
       {
         "name": "AMAZON.PreviousIntent",
+        "samples": []
+      },
+      {
+        "name": "AMAZON.RepeatIntent",
         "samples": []
       },
       {
@@ -185,7 +203,10 @@
           "start berry buzz",
           "i know berries very well",
           "test me on berries",
-          "lets play berry buzz"
+          "lets play berry buzz",
+          "play",
+          "lets play",
+          "lets play a game"
         ],
         "slots": []
       }
