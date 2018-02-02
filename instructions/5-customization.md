@@ -44,25 +44,25 @@ At this point, you should have a working copy of our Berry Bible skill. In order
 
 1.  **Choosing Slot Types**
 
-Continuing with City Guide, we’ve customized for our city/town, let’s add a feature by adding a new intent, such as a new type of intent that we want our skill to handle. Let’s create an intent so we can ask this skill which sports team plays hockey, baseball, etc. Go into skill builder, create an intent, type a sample utterance, double-click on slot word and define that, then add some code to pull out a slot value and handle the intent and provide a custom response to the user.
+Continuing with Berry Bash, let’s add a feature by adding a new intent, such as a new type of intent that we want our skill to handle. This can be whatever you want; you can do this by following below:
 
 1. Go to developer.amazon, click Interaction Model on the left to enter the skill builder.
 
 1. Click "Add New Intent".
 
-1. Name it ``` TeamNameIntent ``` and click Create Intent.
+1. Name it whatever you want (usually SOMETHINGIntent) and click Create Intent.
 
-1. Click utterances and type: "what team plays basketball" then enter.
+1. Click utterances and type things your users may say to his this intent
 
-1. Double-click the word basketball, and name it "sport" in the create a new intent slot on the right.
+1. You can Double-click the a word to create a new intent slot on the right.
 
-1. Click choose a slot type. You should see a list of suggested slot types- search for sport here, then choose the premade ``` AMAZON.sport ``` type.
+1. Click choose a slot type, you can use the search to pick from Amazon's internal ones.
 
 1. Click Save & then click Build Skill.
 
 1. Click test.
 
-1. Type "what team plays baseball" into the Service Simulator > Enter Utterance field and then hit enter.
+1. Type a similar utterance for this intent into the Service Simulator > Enter Utterance field and then hit enter.
 
 1. When you see the Lambda Request box fill with code, select everything in that box and copy it.
 
@@ -74,50 +74,17 @@ Continuing with City Guide, we’ve customized for our city/town, let’s add a 
 
 1. Go back to your Lambda function and find your handlers. Copy an entire handler and paste it in. You should now have something like this:
 
-```     
-    'AboutIntent': function () {
-        this.emit(':tell', this.t('ABOUT'));
-    },
+``` 'DIFFERENTIntent': function () {
 
-    'AboutIntent': function () {
-        this.emit(':tell', this.t('ABOUT'));
+    }, 
+    'SOMETHINGIntent': function () {
+
     },
 ```
 
-1. Change the name of your second AboutIntent to ``` TeamNameIntent ``` .
+1. Change the name of your new intent to the intent name you just made.
 
-1. Add a line below the name that has this code: ``` let say = 'handling the team name intent'; ``` .
-
-1. Add a line below that with this code: ``` this.emit(':tell', say); ``` .
-
-1. Now Click Save at the top, then click Test.  This time our test should pass.
-
-1. On the line below ``` let say = 'handling the team name intent'; ```, paste this code:
-
-```
-        let sportName = '';
-        if (this.event.request.intent.slots.sport.value) {
-            sportName = this.event.request.intent.slots.sport.value;
-        }
-        switch(sportName) {
-        case 'basketball':
-          say = 'The Boston Celtics are the local basketball team.';
-          break;
-          case 'hockey':
-          say = 'The Boston Bruins are the local hockey team.';
-          break;
-          case 'baseball':
-          say = 'The Boston Red Sox are the local baseball team.';
-          break;
-          case 'football':
-          say = 'The New England Patriots are the local football team.';
-          break;
-          default:
-          say = 'Please try again. You can ask which team plays either basketball, hockey, baseball, or football. ';
-        }
-```
-
-1. Based on what the user says, this will give our user a response to what they asked, and the default will ensure that we help the user if they ask for a sport we haven't planned on.
+1. Add code for how you'd like your skill to response if this intent was hit by a user
 
 1. Save, then test again, then go to the developer portal.
 
@@ -126,82 +93,6 @@ Continuing with City Guide, we’ve customized for our city/town, let’s add a 
 ### Extra Credit
 
 What about custom slot types? The Alexa [Quiz Game](https://github.com/alexa/skill-sample-nodejs-quiz-game) Skill uses a custom slot, named US_STATE_ABBR.  Try creating a custom slot for your own skill.
-
-## Add Smart Recommendations
-
-When the user says "go outside", the ```GoOutIntent``` intent is called and the code in the GoOutIntent handler block is executed.
-This makes an API call over the Internet to the Yahoo Weather service, which returns the weather and current time in your city.
-
-You can enhance the ```GoOutIntent``` handler code (around line 185) to make a relevant activity suggestion to the user.
-For example, add logic to decide, based on current time and weather conditions, whether to:
-
- * Go out to a local beach or park
- * Recommend a movie theatre or mall
- * Attend a scheduled public event happening soon
- * Staying home to watch a movie on Amazon Prime
- * etc..
-
-### To begin, follow these steps
-
-1. Test ‘go outside’ skill in simulator first. You should get a standard response giving you the time and weather conditions in your city.
-
-1. Go to your lambda function
-
-1. Scroll through your code to one of the last handlers, called ```GoOutIntent```
-
-1. Now, paste this code into your GoOutIntent:
-
-```
-            let AMPM = localTime.substr(-2);
-            console.log(AMPM);
-            let hour = parseInt(localTime.split(':').shift());
-            if(AMPM == "PM" && hour < 12) { hour = hour + 12; }
-            console.log(hour);
-
-            let suggestion = 'Read a book.';
-
-            console.log(suggestion);
-
-            if(hour < 7 ) {suggestion = 'Sleep.'; }
-            if(hour >= 7 && hour < 12) {suggestion = 'Ask me for a breakfast recommendation.'; }
-            if(hour >= 12 && hour < 14) {suggestion = 'Ask me for a lunch recommendation.'; }
-            if(hour >= 17 && hour < 20) {suggestion = 'Ask me for a dinner recommendation.'; }
-
-            if(hour >= 22) {suggestion = 'Go to bed.'; }
-
-            if(hour >= 20 && hour < 22) {
-                if(['Rain', 'Shower', 'Thunderstorms'].indexOf(currentCondition) > -1) {
-                    suggestion = 'Stay home and watch a movie on Amazon Prime since it is wet outside.';   
-                } else {
-                    suggestion = 'Check out what is playing at the Cineplex movie theater on 123 Main St.';
-                }
-
-            }
-
-            if (['Sunny'].indexOf(currentCondition) > -1 -1 && currentTemp > 75 && hour < 11) {suggestion = 'Plan a day at the beach, as it is sunny and warm today.'}
-
-            console.log(suggestion);
-            this.emit(':tell', 'It is ' + localTime
-            + ' and the weather in ' + data.city
-            + ' is '
-            + currentTemp + ' and ' + currentCondition
-            + '. I suggest you ' + suggestion);
-```            
-
-1. What we have just done is create some logic that matches possible outcomes to a custom response for our users.
-
-1. Now click Save, then click Test. Our test should pass.
-
-1. Go to the developer portal.
-
-1. Type 'go outside' into the Enter Utterance field found in the Service Simulator and press enter
-
-1. Alexa should give us a customized recommendation according to your code.
-
-### Extra Credit
-
-What if we wanted to get info about local movie showtimes? Try adding another API call, maybe one that checks movie showtimes for a local theater, or something creative that you come up with yourself!
-
 
 <br/><br/>
 <a href="./6-publication.md"><img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/buttons/button_next_publication._TTH_.png" /></a>
