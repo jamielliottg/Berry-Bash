@@ -7,18 +7,11 @@ At this point, you should have a working copy of our Berry Bible skill. In order
 
 1.  **New data.** You can create a new dataset for your skill that *isn't* related to berries. In fact, if you have the relevant information and pictures, you can change it however you like!
 
-    1.  **Open a copy of index.js.** If you haven't already downloaded the code for this project, [you can find a copy of index.js here on GitHub](https://github.com/jamielliottg/BerryBible/blob/master/lambda/custom/index.js).  You can use a simple, lightweight code editor like [Atom](http://atom.io), [Sublime Text](http://sublimetext.com), or [VSCode](http://code.visualstudio.com), but you also have the option to edit the code directly in your Lambda function.
+    1.  **Open a copy of index.js.** If you haven't already downloaded the code for this project, [you can find a copy of index.js here on GitHub](../lambda/custom/index.js).  You can use a simple, lightweight code editor like [Atom](http://atom.io), [Sublime Text](http://sublimetext.com), or [VSCode](http://code.visualstudio.com), but you also have the option to edit the code directly in your Lambda function.
 
     2.  **Search for the comment "/////////Code data"**  Below this is the data for our skill.  You can see that there are different arrays for different values related to each individual item; these are used to create objects later on. If you want to add more properties, just create another array and ensure it's added to the constructor in the 'createBerry' function.
     
-    3.  **Experiment with render template types**  The code at the moment uses a few types of body templates and list templates, but you can see that we have quite the selection available over here. Feel free to substitute any in the code to see how it looks; as an example, add a statement to the 'bodyTemplateMaker' function like so:
-    
-    if (pBodyTemplateType == 6)
-        bodyTemplate = new Alexa.templateBuilders.BodyTemplate6Builder();
-        
-- And then call the function as needed like so:
-
-    bodyTemplateMaker(**6**, pImg, pTitle, pText1, pText2, pOutputSpeech, pReprompt)
+    3.  **Experiment with render template types**  The code at the moment uses a few types of body templates and list templates, but you can see that we have quite the selection available over [here](https://developer.amazon.com/docs/custom-skills/display-interface-reference.html). 
 
     4.  **Consider using built-in slot values.** We recommend considering data from the built-in slot values provided by Amazon.  You still need to build your entire dataset, but using values from the built-in slots will make your work in the next few steps easier.  We have provided a few examples below, but you can see the [entire list of built-in slot values here](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference#list-types).
 
@@ -34,8 +27,8 @@ At this point, you should have a working copy of our Berry Bible skill. In order
 
     4.  **Once you have your data, here are a couple of tips to remember as we move forward:**
 
-        *  **Alexa will read your restaurant and attraction names, so each property name should be readable in your questions.**  These names are also used in **cards** in the Alexa app, so you should capitalize the first letter of each word.  The skill will automatically separate words and add spaces as necessary.
-        *  **If you can't remember the details for a place, just look them up.** We're going to be publishing this skill, so we need to make sure that our users are getting accurate data.
+        *  **If you change values in the code, make sure that they are changed in the interaction model too under our custom slot types.** 
+        *  **If you can't think of any new fruit, just look them up.** We're going to be publishing this skill, so we need to make sure that our users are getting accurate data.
 
     5.  **When you have replaced the data in index.js, copy the contents of your file to your Lambda function.**  This should be as simple as copying the text, and pasting it into the code box for your Lambda.
 
