@@ -270,7 +270,10 @@ const handlers = {
             else //If this intent is hit without the needed data 
                 handleUnknown.call(this);
         }
-    }
+    },
+    'SessionEndedRequest': function () { //User has outright quit the skill
+        endSkill.call(this);
+    },
 };
 
 /////////Alexa Setup//////////////////////////////////////////////////////////////////////////
