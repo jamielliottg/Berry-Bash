@@ -615,7 +615,7 @@ function showSpecificFruitInfo(pIndex, pArray) //User has selected a single frui
     this.attributes['selectedFruitIndex'] = pIndex;
     
     if (supportsDisplay.call(this) && !testingOnSim)
-        bodyTemplateMaker.call(this, 3, pArray[pIndex].imageURL, capitalizeFirstLetter(pArray[pIndex].name), '<action value="read_fruit_info"><b>Read</b></action> | <action value="berry_list_token"><b>Back</b></action><br/>', pArray[pIndex].info, 'Here is some information about ' + pArray[pIndex].name + '.', 'test me on berries');
+        bodyTemplateMaker.call(this, 3, pArray[pIndex].imageURL, capitalizeFirstLetter(pArray[pIndex].name), '<action value="read_fruit_info"><b>Read</b></action> | <action value="berry_list_token"><b>Back</b></action><br/>', pArray[pIndex].info, 'Here is some information about ' + pArray[pIndex].name + '.', null, 'test me on berries');
     else
         speakOnly.call(this, pArray[pIndex].info + ' Which fruit would you like to hear about now?');
 }
