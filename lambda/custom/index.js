@@ -436,8 +436,10 @@ function handleAnswer(pCorrectAnswer, pUserAnswer, pArray, pGameFinished)
         
         if (this.attributes['correctAnswersNo'] && this.attributes['correctAnswersNo'] == 1)
             answerSP = 'answer'; //handle plural/singular
+            
+        var correctAnswersVal = this.attributes['correctAnswersNo'] || 0;
         
-        speechOutput += ' Out of ' + pArray.length + ', you got ' + (this.attributes['correctAnswersNo'] || 0) + ' ' + answerSP + ' correct. ';
+        speechOutput += ' Out of ' + pArray.length + ', you got ' + correctAnswersVal + ' ' + answerSP + ' correct. ';
         var speechOutput2 = 'Ask to play again; otherwise, I can teach you about some of the berries you have just seen if you would prefer. Just let me know.';
         speechOutput += speechOutput2;
         
@@ -451,7 +453,7 @@ function handleAnswer(pCorrectAnswer, pUserAnswer, pArray, pGameFinished)
         resetAttributes.call(this);
             
         if (supportsDisplay.call(this) && !testingOnSim)
-            bodyTemplateMaker.call(this, 2, gameoverImage, cardTitle, '<b><font size="7">' + (this.attributes['correctAnswersNo'] || 0) + ' / ' + pArray.length + ' correct.</font></b>', '<br/>' + speechOutput2, speechOutput, null, "tell me about berries"); 
+            bodyTemplateMaker.call(this, 2, gameoverImage, cardTitle, '<b><font size="7">' + correctAnswersVal + ' / ' + pArray.length + ' correct.</font></b>', '<br/>' + speechOutput2, speechOutput, null, "tell me about berries"); 
         else
             speakOnly.call(this, speechOutput);
     }
