@@ -8,20 +8,24 @@ const makeImage = Alexa.utils.ImageUtils.makeImage;
 const makeRichText = Alexa.utils.TextUtils.makeRichText;
 
 /////////Code data
+var skillName = 'Berry Bash';
+
 var adjectives = ['craziest', 'hippest', 'tastiest', 'sweetest', 'greatest', 'cheekiest', 'spiciest', 'greatest', 'smartest', 'best'];
 
-var fruitsMainImage = 'http://gottausewords.com/wp-content/uploads/2013/03/fruitbookapple.jpg';
+var fruitsMainImage = 'http://i.telegraph.co.uk/multimedia/archive/03418/Berries-Jacqueline_3418530b.jpg';
+var secondPlaceImage = 'http://www.sticker.com/picture_library/product_images/award-ribbons/72435_2nd-second-place-award-ribbon-stickers-and-labels.png';
+var firstPlaceImage = 'http://www.sticker.com/picture_library/product_images/award-ribbons/72430_1st-first-place-award-ribbon-stickers-and-labels.png';
 
-var berryNames = ['raspberry',
-    'blackberry',
-    'strawberry',
-    'blueberry',
-    'elderberry',
-    'gooseberry',
-    'cranberry',
-    'huckleberry',
-    'bilberry',
-    'gojiberry'];
+var berryNames = ['raspberries',
+    'blackberries',
+    'strawberries',
+    'blueberries',
+    'elderberries',
+    'gooseberries',
+    'cranberries',
+    'huckleberries',
+    'bilberries',
+    'gojiberries'];
     
 var berryImgURLs = ['http://www.publicdomainpictures.net/pictures/10000/velka/1-1248158051Ix2h.jpg',
 'https://www.organicfacts.net/wp-content/uploads/2013/06/blackberry.jpg',
@@ -49,41 +53,70 @@ var berryInfo = ['The Raspberry or Red Raspberry is the plant that produces a ta
  
 const handlers = {
     'LaunchRequest': function () {
-        var berriesArray = [];
-        var speechOutput = 'Welcome to the Berry Bible, the ' + adjectives[getRandomVal(0, adjectives.length - 1)] + ' stop for knowledge about berries around. Would you like to hear about some berries?';
-        var reprompt = 'Would you like to hear about some berries?';
-        var cardTitle = 'Welcome to the Berry Bible';
+        newSessionHandler.call(this);
         
-        for (var i = 0 ; i < berryNames.length; i++) //We create a new set of berries here
-            berriesArray[i] = createBerry(berryNames[i], berryImgURLs[i], berryInfo[i]);
+        var speechOutput = 'Welcome to ' + skillName + ', the ' + adjectives[getRandomVal(0, adjectives.length - 1)] + ' stop for knowledge about berries around. ';
+        this.attributes['skillState'] = 'mainState';
         
-        this.attributes['berries'] = shuffle(berriesArray); //And then randomise them each time the skill starts
+        showHome.call(this, speechOutput);
+    },
+    'InformationIntent': function () {
+        newSessionHandler.call(this);
         
-        if (supportsDisplay.call(this))
-            bodyTemplateMaker.call(this, 7, fruitsMainImage, cardTitle, null, null, speechOutput, reprompt); 
+        if (this.attributes['skillState'] == 'gamePlaying')
+        {
+            
+        }
         else
         {
-            this.response.speak(speechOutput);
-            this.response.listen(reprompt);
-            this.response.cardRenderer(cardTitle, speechOutput, fruitsMainImage);
-            this.emit(':responseReady');
+            showMainList.call(this);
         }
     },
-    'MoreInfoIntent': function () {//If the user asks for more information about the currently selected fruit
-        var speechOutput = this.attributes['berries'][this.attributes['currentBerryArrayIndex']].info;
+    'AMAZON.YesIntent': function () {
+        newSessionHandler.call(this);
+        if (this.attributes['skillState'] == 'quizMainMenu')
+        {
+            var speechOutput;
+            var questionNo = 0;
+            
+            speechOutput = '<say-as interpret-as="interjection">Good luck.</say-as> ';
+            
+            this.attributes['skillState'] = 'gamePlaying';
+            
+            generateNewQuestion.call(this, speechOutput, questionNo);
+        }
+    },
+    'QuizIntent': function () {
+        newSessionHandler.call(this);
+        var speechOutput = '<say-as interpret-as="interjection">dun dun dun.</say-as> Check out the big brains over here. Are you ready to begin?';
+        this.attributes['berries2'] = this.attributes['berries'];
+        var berryArray = this.attributes['berries2'];
+        
+        berryArray = shuffle(berryArray);
+        
+        var randomBerries = [];
+        
+        for (var i = 0; i < 6; i++)
+        {
+            randomBerries[i] = berryArray[i];
+        }
+        
+        this.attributes['QuizBerries'] = shuffle(randomBerries);
+        this.attributes['skillState'] = 'quizMainMenu';
+        
+        var reprompt = "hello";
         
         this.response.speak(speechOutput);
-        this.response.shouldEndSession(null);
+        this.response.listen(reprompt);
         this.emit(':responseReady');
     },
-    'AMAZON.YesIntent': function () {
-        if (supportsDisplay.call(this))
-            showMainList.call(this);
-        else
-            showAudioMainList.call(this);
-    },
     'AMAZON.NoIntent': function () {
-        endSkill.call(this);
+        if (this.attributes['skillState'] == 'gamePlaying')
+        {
+            showHome.call(this, null);
+        }
+        else
+            endSkill.call(this);
     },
     'AMAZON.StopIntent': function () {
         endSkill.call(this);
@@ -92,7 +125,8 @@ const handlers = {
         endSkill.call(this);
     },
     'AMAZON.HelpIntent': function () {
-        var speechOutput = 'The Berry Bible provides you with some interesting information about the ' + adjectives[getRandomVal(0, adjectives.length - 1)] + ' berries ever. Simply ask for a berry and you will be provided with some cool info. Are you ready?';
+        newSessionHandler.call(this);
+        var speechOutput = skillName + ' provides you with some interesting information about the ' + adjectives[getRandomVal(0, adjectives.length - 1)] + ' berries ever. Simply ask for a berry and you will be provided with some cool info. Are you ready?';
         var reprompt = "Would you like to hear about a berry?";
         
         this.response.speak(speechOutput);
@@ -100,62 +134,156 @@ const handlers = {
         this.emit(':responseReady');
     },
     'BackToListIntent': function () {
-        if (supportsDisplay.call(this))
-            showMainList.call(this);
-        else
-            showAudioMainList.call(this);
+        newSessionHandler.call(this);
+        showMainList.call(this);
     },
     'ElementSelected': function () {//To handle events when the screen is touched
-        var berryArray = this.attributes['berries'];
+        newSessionHandler.call(this);
         
-        if (this.event.request.token == 'berry_list_token') //'Go back' action links selected
+        if (this.attributes['skillState'] == 'gamePlaying')
         {
-            showMainList.call(this);
-        }
-        else if (this.event.request.token) //When a list item has been selected
-        {
-            var valueToken = this.event.request.token;
-            var index;
+            var optionsArray = this.attributes['onScreenOptions'];
+            var correctQIndex = this.attributes['correctIndex'];
+            var quizBerries = this.attributes['QuizBerries'];
+            var currentQNo = this.attributes['questionNumber'];
+            var speechOutput;
             
-            for (var i = 0 ; i < berryArray.length; i++) //Find out which one based on array index
+            if (this.event.request.token)
             {
-                if (valueToken == berryArray[i].token)
+                if (currentQNo < quizBerries.length-1)
+                    handleAnswer.call(this, optionsArray[correctQIndex].token, this.event.request.token, quizBerries, false);
+                else
+                    handleAnswer.call(this, optionsArray[correctQIndex].token, this.event.request.token, quizBerries, true);
+            }
+            else if (parseInt(this.event.request.intent.slots.numberValue.value))
+            {
+                var userChoiceNumber = parseInt(this.event.request.intent.slots.numberValue.value);
+                
+                if (currentQNo < quizBerries.length-1)
                 {
-                    this.attributes['currentBerryArrayIndex'] = i;
-                    index = i;
-                    break;
+                    if (userChoiceNumber > 0 && userChoiceNumber < 5)
+                    {
+                        handleAnswer.call(this, correctQIndex+1, userChoiceNumber, quizBerries, false);
+                    }
+                    else
+                    {
+                        speechOutput = 'Please say a number between 1 and 4';
+                        this.response.speak(speechOutput);
+                        this.response.shouldEndSession(null);
+                        this.emit(':responseReady');
+                    }
+                }
+                else
+                {
+                    handleAnswer.call(this, correctQIndex+1, userChoiceNumber, quizBerries, true);
                 }
             }
-            
-            showSpecificFruitInfo.call(this, index, berryArray);
         }
-        else if (this.event.request.intent.slots.fruitValue.value) //If the user chooses their berry via voice
+        else if (this.attributes['skillState'] == 'mainState')
         {
-            var userFruit = this.event.request.intent.slots.fruitValue.value;
-            var index;
+            if (this.event.request.token == "berry_book_token")
+                showMainList.call(this);
+            else if (this.event.request.token == 'berry_buzz_token')
+                this.emit('QuizIntent');
+        }
+        else 
+        {
+            var berryArray = this.attributes['berries'];
             
-            for (var i = 0 ; i < berryArray.length; i++) //Find out which berry
+            if (this.event.request.token == 'berry_list_token') //'Go back' action links selected
             {
-                if (userFruit.toLowerCase() == berryArray[i].name.toLowerCase())
-                {
-                    this.attributes['currentBerryArrayIndex'] = i;
-                    index = i;
-                    break;
-                }
+                showMainList.call(this);
             }
-            
-            if (index) //If we don't have information about their chosen slot value..
-                showSpecificFruitInfo.call(this, index, berryArray);
-            else
+            else if (this.event.request.token) //When a list item has been selected
+            {
+                var valueToken = this.event.request.token;
+                var result = matchChecker(berryArray, valueToken);
+                
+                showSpecificFruitInfo.call(this, result, berryArray);
+            }
+            else if (this.event.request.intent.slots.fruitValue.value) //If the user chooses their berry via voice
+            {
+                var userFruit = this.event.request.intent.slots.fruitValue.value;
+                
+                var result = matchChecker(berryArray, userFruit.toLowerCase());
+
+                if (result)
+                    showSpecificFruitInfo.call(this, result, berryArray);
+                else
+                    handleUnknown.call(this);
+            }
+            else //If this intent is hit without the needed data 
+            {
                 handleUnknown.call(this);
-        }
-        else //If this intent is hit without the needed data 
-        {
-            handleUnknown.call(this);
+            }
         }
     }
-    
 };
+
+function matchChecker(pArray, pCompare1)
+{
+    for (var i = 0 ; i < pArray.length; i++) //Find out which berry
+    {
+        if (pCompare1 == pArray[i].name || pCompare1 == pArray[i].token)
+            return i;
+    }
+}
+
+function handleAnswer(pCorrectAnswer, pUserAnswer, pArray, pGameFinished)
+{
+    var speechOutput;
+    
+    if (pCorrectAnswer == pUserAnswer)
+    {
+        speechOutput = generateRandomCongratSC() + ' That is correct! ';
+        
+        if (this.attributes['correctAnswersNo'])
+            this.attributes['correctAnswersNo']++;
+        else
+            this.attributes['correctAnswersNo'] = 1;
+    }
+    else
+    {
+        speechOutput = generateRandomWrongSC() + ' That is incorrect. ';
+    }
+    
+    if (!pGameFinished)
+    {
+        this.attributes['questionNumber']++;
+        generateNewQuestion.call(this, speechOutput, this.attributes['questionNumber']);
+    }
+    else
+    {
+        var answerSing = 'answers';
+        var cardTitle = 'Game Over!';
+        var gameoverImage;
+        
+        if (this.attributes['correctAnswersNo'] && this.attributes['correctAnswersNo'] == 1)
+            answerSing = 'answer';
+        
+        speechOutput += ' Out of ' + pArray.length + ', you got ' + (this.attributes['correctAnswersNo'] || 0) + ' ' + answerSing + ' correct. ';
+        var speechOutput2 = 'Ask to play again; otherwise, I can teach you about some of the berries you have just seen if you would prefer. Just let me know.';
+        speechOutput += speechOutput2;
+        
+        this.attributes['skillState'] = 'mainState';
+        
+        if (this.attributes['correctAnswersNo'] && this.attributes['correctAnswersNo'] > 4)
+            gameoverImage = firstPlaceImage;
+        else
+            gameoverImage = secondPlaceImage;
+        
+        if (supportsDisplay.call(this))
+        {
+            bodyTemplateMaker.call(this, 2, gameoverImage, cardTitle, '<b><font size="7">' + (this.attributes['correctAnswersNo'] || 0) + ' / ' + pArray.length + ' correct.</font></b>', '<br/>' + speechOutput2, speechOutput, null, "teach me about berries"); 
+        }
+        else
+        {
+            this.response.speak(speechOutput);
+            this.response.shouldEndSession(null);
+            this.emit(':responseReady');
+        }
+    }
+}
 
 exports.handler = function (event, context) {
     const alexa = Alexa.handler(event, context);
@@ -163,14 +291,38 @@ exports.handler = function (event, context) {
     alexa.execute();
 };
 
+function showHome(pSpeechOutput)
+ {
+     var speechOutput = pSpeechOutput || '';
+     var cardTitle = skillName;
+     
+     var actionText1 = '<action value="berry_book_token"><i>Berry Book</i></action>';
+     var actionText2 = '<action value="berry_buzz_token"><i>Berry Buzz</i></action>';
+     
+     speechOutput += 'Simply ask me to provide information about berries from the Berry Book, or if you are feeling lucky, ask for a quick game of Berry Buzz.'; 
+     var text = '<u><font size="7">' + skillName + '</font></u><br/><br/>Simply ask me to provide information about berries from the ' + actionText1 + ', or if you are feeling lucky, ask for a quick game of ' + actionText2 + '.'; 
+     var reprompt = 'What would you like to do?';
+     
+     if (supportsDisplay.call(this))
+        bodyTemplateMaker.call(this, 3, fruitsMainImage, cardTitle, null, text, speechOutput, reprompt); 
+    else
+    {
+        this.response.speak(speechOutput);
+        this.response.listen(reprompt);
+        this.response.cardRenderer(cardTitle, speechOutput, fruitsMainImage);
+        this.emit(':responseReady');
+    }
+ }
+
 //////////Helper Functions
-function createBerry(pName, pImageURL, pInfo)
+function createBerry(pName, pImageURL, pInfo, pOrigin)
 {
     var berry = {
         name        : pName,
         imageURL     : pImageURL,
         info : pInfo,
-        token : pName + 'Token'
+        token : pName + 'Token',
+        origin : pOrigin
     };
     
     return berry;
@@ -203,7 +355,7 @@ function handleUnknown()
     this.emit(':responseReady');
 }
 
-function bodyTemplateMaker(pBodyTemplateType, pImg, pTitle, pText1, pText2, pOutputSpeech, pReprompt)
+function bodyTemplateMaker(pBodyTemplateType, pImg, pTitle, pText1, pText2, pOutputSpeech, pReprompt, pHint)
 {
     var bodyTemplate;
     
@@ -212,12 +364,14 @@ function bodyTemplateMaker(pBodyTemplateType, pImg, pTitle, pText1, pText2, pOut
     
     if (pBodyTemplateType == 3)
         bodyTemplate = new Alexa.templateBuilders.BodyTemplate3Builder();
+        
+    if (pBodyTemplateType == 2)
+        bodyTemplate = new Alexa.templateBuilders.BodyTemplate2Builder();
     
     let template = bodyTemplate.setTitle(pTitle)
                           .build();
     
-    if (pText1 && pText2)
-        bodyTemplate.setTextContent(makePlainText(pText1), makeRichText(pText2))
+    bodyTemplate.setTextContent(makeRichText(pText1) || null, makeRichText(pText2) || null)
     
     if (pImg)
         bodyTemplate.setImage(makeImage(pImg));
@@ -225,6 +379,8 @@ function bodyTemplateMaker(pBodyTemplateType, pImg, pTitle, pText1, pText2, pOut
     this.response.speak(pOutputSpeech)
                  .renderTemplate(template)
                  .shouldEndSession(null);
+                 
+    this.response.hint(pHint || null, "PlainText");
     
     if (pReprompt)
         this.response.listen(pReprompt);
@@ -232,37 +388,113 @@ function bodyTemplateMaker(pBodyTemplateType, pImg, pTitle, pText1, pText2, pOut
     this.emit(':responseReady');
 }
 
-function showAudioMainList()
+function generateNewQuestion(pSpeechOutput, pQuestionNo)
 {
-    var berryArray = this.attributes['berries'];
+    var berryArray = this.attributes['berries2'];
+    var quizBerries = this.attributes['QuizBerries'];
+    var questionAskType = ['Which of these looks like ', 'Please select the image that represents ', 'Do you know which of these look like '];
             
-    var speechOutput = "I have a range of berries I can tell you about including: ";
+    var question;
+    question = 'Question ' + (pQuestionNo+1) + ': ' + questionAskType[getRandomVal(0, 3)] + quizBerries[pQuestionNo].name + '?';
+    pSpeechOutput += question;
+    var index;
     
     for (var i = 0; i < berryArray.length; i++)
-        speechOutput += berryArray[i].name + ', ';
-        
-    speechOutput += ". Which would you like to hear about?";
+    {
+        if (berryArray[i].name == quizBerries[pQuestionNo].name)
+        {
+            index = i;
+            break;
+        }
+    }
     
-    this.response.speak(speechOutput);
-    this.response.listen(speechOutput);
-    this.response.cardRenderer('Berry List', speechOutput);
-    this.emit(':responseReady');
+    berryArray.splice(index, 1);
+    berryArray = shuffle(berryArray);
+    
+    var optionsArray = [quizBerries[pQuestionNo]];
+    
+    for (var i = 1; i < 4; i++)
+        optionsArray[i] = berryArray[i];
+    
+    optionsArray = shuffle(optionsArray);
+    
+    for (var i = 0; i < optionsArray.length; i++)
+    {
+        if (optionsArray[i].name == quizBerries[pQuestionNo].name)
+        {
+            this.attributes['correctIndex'] = i;
+            break;
+        }
+    }
+    
+    this.attributes['onScreenOptions'] = optionsArray;
+    this.attributes['questionNumber'] = pQuestionNo;
+    
+    listTemplateMaker.call(this, optionsArray, 2, question, pSpeechOutput, true);
 }
 
 function showMainList()
 {
-    var speechOutput = 'Select or ask for a berry below for more information.';
-    listTemplateMaker.call(this, this.attributes['berries'], speechOutput, speechOutput);
+    var speechOutput;
+    
+    this.attributes['skillState'] = null;
+
+    if (supportsDisplay.call(this))
+    {
+        speechOutput = 'Select or ask for a berry below for more information.';
+        listTemplateMaker.call(this, this.attributes['berries'], 1, speechOutput, speechOutput);
+    }
+    else
+    {
+        var berryArray = this.attributes['berries'];
+            
+        speechOutput = "I have a range of berries I can tell you about including: ";
+        
+        for (var i = 0; i < berryArray.length; i++)
+            speechOutput += berryArray[i].name + ', ';
+            
+        speechOutput += ". Which would you like to hear about?";
+        
+        this.response.speak(speechOutput);
+        this.response.listen(speechOutput);
+        this.response.cardRenderer('Berry List', speechOutput);
+        this.emit(':responseReady');
+    }
+}
+
+function newSessionHandler()
+{
+    if (this.event.session.new)
+    {
+        var berriesArray = [];
+        
+        for (var i = 0 ; i < berryNames.length; i++) //We create a new set of berries here
+            berriesArray[i] = createBerry(berryNames[i], berryImgURLs[i], berryInfo[i]);
+        
+        this.attributes['berries'] = shuffle(berriesArray); //And then randomise them each time the skill starts
+        this.attributes['berries2'] = this.attributes['berries'];
+    }
 }
     
-function listTemplateMaker(pArray, pTitle, pOutputSpeech)
+function listTemplateMaker(pArray, pType, pTitle, pOutputSpeech, pQuiz)
 {
     const listItemBuilder = new Alexa.templateBuilders.ListItemBuilder();
-    const listTemplateBuilder = new Alexa.templateBuilders.ListTemplate1Builder();
+    var listTemplateBuilder;
+    
+    if (pType == 1)
+        listTemplateBuilder = new Alexa.templateBuilders.ListTemplate1Builder();
+    else if (pType == 2)
+        listTemplateBuilder = new Alexa.templateBuilders.ListTemplate2Builder();
 
-    for (var i = 0; i < pArray.length; i++)
+    if (!pQuiz)
     {
-        listItemBuilder.addItem(makeImage(pArray[i].imageURL), pArray[i].token, makePlainText(capitalizeFirstLetter(pArray[i].name)));
+        for (var i = 0; i < pArray.length; i++)
+            listItemBuilder.addItem(makeImage(pArray[i].imageURL), pArray[i].token, makePlainText(capitalizeFirstLetter(pArray[i].name)));
+    }
+    else
+    {
+        for (var i = 0; i < pArray.length; i++)
+            listItemBuilder.addItem(makeImage(pArray[i].imageURL), pArray[i].token);
     }
     
     const listItems = listItemBuilder.build();
@@ -278,8 +510,14 @@ function listTemplateMaker(pArray, pTitle, pOutputSpeech)
 
 function showSpecificFruitInfo(pIndex, pArray)
 {
-    var infoSplit = pArray[pIndex].info.split('.');
-    bodyTemplateMaker.call(this, 3, pArray[pIndex].imageURL, capitalizeFirstLetter(pArray[pIndex].name), pArray[pIndex].info, '<action value="berry_list_token">Go back to Berry list.</action>', infoSplit[0] + '. Ask me to read out the rest; otherwise, ask to be taken back to the main list.'); 
+    if (supportsDisplay.call(this))
+    {
+        bodyTemplateMaker.call(this, 3, pArray[pIndex].imageURL, capitalizeFirstLetter(pArray[pIndex].name), pArray[pIndex].info, '<action value="berry_list_token">Go back to Berry list.</action>', pArray[pIndex].info); 
+    }
+    else
+    {
+        
+    }
 }
 
 /////Code Support Functions
@@ -293,7 +531,7 @@ function shuffle(a) {
 
 function endSkill()
 {
-    var speechOutput = "Thanks for checking out the Berry Bible. Learn more about berries another time. Goodbye!"
+    var speechOutput = "Thanks for checking out " + skillName + ". Learn more about berries another time. Goodbye!"
     
     this.response.speak(speechOutput);
     this.emit(':responseReady');
@@ -306,4 +544,23 @@ function capitalizeFirstLetter(string) {
 function getRandomVal(pMin, pMax)
 {
     return Math.floor((Math.random() * pMax) + pMin);
+}
+
+function generateRandomCongratSC()
+{
+    
+    var speechconArray = ['bang', 'boing', 'kaboom', 'mazel tov', 'oh snap', 'well done']
+    var r = getRandomVal(0, speechconArray.length);
+
+    return '<say-as interpret-as="interjection">' + speechconArray[r] + '</say-as>. ';
+    
+}
+
+function generateRandomWrongSC()
+{
+    
+    var speechconArray = ['wah wah', 'uh oh', 'tosh', 'quack', 'oof', 'oh dear']
+    var r = getRandomVal(0, speechconArray.length);
+
+    return '<say-as interpret-as="interjection">' + speechconArray[r] + '</say-as>. ';
 }
