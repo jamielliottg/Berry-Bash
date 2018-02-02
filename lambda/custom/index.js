@@ -160,7 +160,10 @@ const handlers = {
         speakOnly.call(this, this.attributes['lastOutputResponse']);
     },
     'AMAZON.StopIntent': function () {
-        confirmExit.call(this);
+        if (this.attributes['skillState'] == 'quitting') //Confirmation for leaving skill
+            endSkill.call(this);
+        else
+            confirmExit.call(this);
     },
     'AMAZON.CancelIntent': function () {
         confirmExit.call(this);
