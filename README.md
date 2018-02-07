@@ -5,7 +5,7 @@
 
 <img src="https://i.imgur.com/8RgEEkG.jpg" height="200" width="200"/><img src="https://i.imgur.com/NK1PKH0.jpg" height="200" width="200"/><img src="https://i.imgur.com/lZV6SNV.jpg" height="200" width="200"/><img src="https://i.imgur.com/3moAoF6.jpg" height="200" width="200"/>
 
-# Ready to create something cool?
+# Adding screens to your voice experience
 
 This Alexa sample skill demonstrates the use of interactive render template directives through multi modal screen design. It provides an infrastructure that on one hand, provides lists to users to allow them to select from and get more information about topics. On the other hand, it also provides users with a quiz that supports both touch and voice control. It can also be used as a template as you can modify the hard coded data to offer choices and information about your chosen topic.
 
