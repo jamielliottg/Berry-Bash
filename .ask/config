@@ -8,7 +8,7 @@
           "apis": {
             "custom": {
               "endpoint": {
-                "uri": "ask-custom-berrybible-default"
+                "uri": "ask-custom-berrybash-default"
               },
               "interfaces": {
                 "type": RENDER_TEMPLATE
