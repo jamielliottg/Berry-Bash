@@ -9,8 +9,10 @@ const makeRichText = Alexa.utils.TextUtils.makeRichText;
 
 /////////Code data (fruit info, random text, etc)//////////////////////////////////////////////////////////////////////////
 var skillName = 'Berry Bash';
-var skillGameName = 'Berry Buzz';
+var skillQuizName = 'Berry Buzz';
 var skillDictionaryName = 'Berry Book';
+var categoryPlural = 'berries';
+var categorySingular = 'berry';
 
 var adjectives = ['craziest', 'hippest', 'tastiest', 'sweetest', 'greatest', 'cheekiest', 'spiciest', 'greatest', 'smartest', 'best'];
 
@@ -20,11 +22,11 @@ var negativeSpeechconArray = ['wah wah', 'uh oh', 'tosh', 'quack', 'oof', 'oh de
 var correctResponses = ['That is correct.', 'You got it!', 'Nice one.', 'There you go.', 'Awesome', 'Congratulations.'];
 var wrongResponses = ['Oh no.', 'That is wrong.', 'Incorrect.', 'Unlucky.', 'Maybe next time.', 'Nearly.'];
 
-var fruitsMainImage = 'http://i.telegraph.co.uk/multimedia/archive/03418/Berries-Jacqueline_3418530b.jpg';
+var mainImage = 'http://i.telegraph.co.uk/multimedia/archive/03418/Berries-Jacqueline_3418530b.jpg';
 var secondPlaceImage = 'http://www.sticker.com/picture_library/product_images/award-ribbons/72435_2nd-second-place-award-ribbon-stickers-and-labels.png';
 var firstPlaceImage = 'http://www.sticker.com/picture_library/product_images/award-ribbons/72430_1st-first-place-award-ribbon-stickers-and-labels.png';
 
-var berryNames = ['raspberries',
+var arrayNames = ['raspberries',
     'blackberries',
     'strawberries',
     'blueberries',
@@ -35,7 +37,7 @@ var berryNames = ['raspberries',
     'bilberries',
     'gojiberries'];
     
-var berryImgURLs = ['http://www.publicdomainpictures.net/pictures/10000/velka/1-1248158051Ix2h.jpg',
+var arrayImages = ['http://www.publicdomainpictures.net/pictures/10000/velka/1-1248158051Ix2h.jpg',
 'https://www.organicfacts.net/wp-content/uploads/2013/06/blackberry.jpg',
 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/PerfectStrawberry.jpg/220px-PerfectStrawberry.jpg',
 'https://wishfarms.com/wp-content/uploads/2015/09/berries_main_image2.jpg',
@@ -46,7 +48,7 @@ var berryImgURLs = ['http://www.publicdomainpictures.net/pictures/10000/velka/1-
 'https://www.organicfacts.net/wp-content/uploads/2013/06/billberries.jpg',
 'https://www.healthline.com/hlcmsresource/images/topic_centers/Food-Nutrition/1296x728_8-Healthy-Facts-About-Goji-Berries_IMAGE_1.jpg'];
 
-var berryInfo = ['The Raspberry or Red Raspberry is the plant that produces a tart, sweet, red composite fruit in the late summer and early autumn. In proper botanical language, it is not a berry at all, but instead an aggregate fruit of numerous drupelets around the central core.',
+var arrayInfo = ['The Raspberry or Red Raspberry is the plant that produces a tart, sweet, red composite fruit in the late summer and early autumn. In proper botanical language, it is not a berry at all, but instead an aggregate fruit of numerous drupelets around the central core.',
 'The blackberry is an edible fruit produced by many species in the Rubus genus in the Rosaceae family, hybrids among these species within the Rubus subgenus, and hybrids between the Rubus and Idaeobatus subgenera.',
 'Strawberries are short-lived herbaceous perennials, producing for 2 to 3 years. Plant in an open, sunny position in raised beds; a good airflow will reduce fungal diseases. Strawberries prefer a well-drained soil, rich in humus. Dig in lots of organic matter, compost, animal manure or blood and bone, about a month before planting.',
 'Blueberry is one of the highest antioxidant capacities among all fruits, vegetables, spices and seasonings. Antioxidants are necessary to optimizing fitness by helping to combat the free radicals that can damage cellular structures as well as DNA. Blueberries are small blue to black colored fruits with a green flesh. They should be rich and bright in color with a natural bloom.',
@@ -66,8 +68,35 @@ const handlers = {
     'LaunchRequest': function () {
         newSessionHandler.call(this);
         
-        var speechOutput = 'Welcome to ' + skillName + ', the ' + adjectives[getRandomVal(0, adjectives.length - 1)] + ' stop for knowledge about berries around. ';
-        showHome.call(this, speechOutput);
+        var speechOutput = 'Welcome to ' + skillName + ', the ' + adjectives[getRandomVal(0, adjectives.length - 1)] + ' stop for knowledge about ' + categoryPlural + ' around. ';
+        var reprompt;
+
+		resetAttributes.call(this);
+
+		var cardTitle = skillName;
+
+		var actionText1 = '<action value="dictionary_token"><i>' + skillDictionaryName + '</i></action>'; //Selectable text
+		var actionText2 = '<action value="quiz_token"><i>' + skillQuizName + '</i></action>';
+
+		speechOutput += 'Simply ask me to provide information about ' + categoryPlural + ' from the ' + skillDictionaryName + '.'; 
+
+		if (supportsDisplay.call(this) && !testingOnSim)
+		{
+			speechOutput += ' However, if you are feeling lucky, ask for a quick game of ' + skillQuizName + '.';
+			var text = '<u><font size="7">' + skillName + '</font></u><br/><br/>Simply ask me to provide information about ' + categoryPlural + ' from the ' + actionText1 + '. However, if you are feeling lucky, ask for a quick game of ' + actionText2 + '.'; 
+			bodyTemplateMaker.call(this, 3, mainImage, cardTitle, null, text, speechOutput, null); 
+		}
+		else
+		{
+			reprompt = 'What would you like to do?';
+			speechOutput = speechOutput + ' ' + reprompt;
+
+			this.response.speak(speechOutput).listen(reprompt);
+
+			this.attributes['lastOutputResponse'] = speechOutput;
+
+			this.emit(':responseReady');
+		}
     },
     'InformationIntent': function () {
         newSessionHandler.call(this);
@@ -79,7 +108,12 @@ const handlers = {
         if (this.attributes['skillState'] == 'gamePlaying')
         {
             speechOutput = 'You are currently in the middle of a game. Would you like to carry on playing?';
-            speakOnly.call(this, speechOutput, speechOutput);
+
+            this.response.speak(speechOutput).listen(speechOutput);
+		        
+		    this.attributes['lastOutputResponse'] = speechOutput;
+		        
+		    this.emit(':responseReady');
         }
         else
             showMainList.call(this);
@@ -94,7 +128,17 @@ const handlers = {
             
             speechOutput = '<say-as interpret-as="interjection">Good luck.</say-as> ';
             
-            setUpQuizBerries.call(this);
+            //Set up new game of quiz
+            var objectArray = this.attributes['quizArray'];
+    
+		    objectArray = shuffle(objectArray);
+		    
+		    var randomObjectArray = [];
+		    
+		    for (var i = 0; i < GAMELENGTH; i++)
+		        randomObjectArray[i] = objectArray[i];
+		    
+		    this.attributes['QuizOptionArray'] = shuffle(randomObjectArray);
             
             this.attributes['skillState'] = 'gamePlaying';
             
@@ -103,7 +147,12 @@ const handlers = {
         else if (this.attributes['skillState'] == 'gamePlaying')
         {
             speechOutput = 'You are currently in the middle of a game. Would you like to carry on playing?';
-            speakOnly.call(this, speechOutput, speechOutput);
+
+            this.response.speak(speechOutput).listen(speechOutput);
+		        
+		    this.attributes['lastOutputResponse'] = speechOutput;
+		        
+		    this.emit(':responseReady');
         }
         else if (this.attributes['skillState'] == 'quitting') //Confirmation for leaving skill
             endSkill.call(this);
@@ -111,22 +160,41 @@ const handlers = {
             handleUnknown.call(this);
     },
     'AMAZON.NoIntent': function () {
+    	var speechOutput;
+    	var reprompt;
+
         if (this.attributes['skillState'] == 'gamePlaying') //User wants to stop playing game
             showHome.call(this, null);
         else if (this.attributes['skillState'] == 'quitting') //User decided to stay in skill after nearly quitting
-            speakOnly.call(this, 'Good choice. Now, where were we?', 'What would you like to do?');
+        {
+        	speechOutput = 'Good choice. Now, what would you like to do?';
+        	reprompt = 'What would you like to do?';
+
+            this.response.speak(speechOutput).listen(reprompt);
+		        
+		    this.attributes['lastOutputResponse'] = speechOutput;
+		        
+		    this.emit(':responseReady');
+        }
         else
             confirmExit.call(this);
     },
     'AMAZON.PreviousIntent': function () {
         var speechOutput;
+        var reprompt;
         
-        if (this.attributes['selectedFruitIndex']) //If we are showing a fruit, go back to the main list
+        if (this.attributes['selectedValueIndex']) //If we are showing a fruit, go back to the main list
             showMainList.call(this, null);
         else if (this.attributes['skillState'] == 'gamePlaying')
         {
             speechOutput = 'You are currently in the middle of a game. Would you like to carry on playing?';
-            speakOnly.call(this, speechOutput, speechOutput);
+            reprompt = 'Would you like to carry on playing?';
+
+            this.response.speak(speechOutput).listen(reprompt);
+		        
+		    this.attributes['lastOutputResponse'] = speechOutput;
+		        
+		    this.emit(':responseReady');
         }
         else
             showHome.call(this, null);
@@ -145,19 +213,44 @@ const handlers = {
                 speechOutput = '<say-as interpret-as="interjection">dun dun dun.</say-as> Check out the big brains over here. Are you ready to begin?';
                 reprompt = "Are you ready to begin?";
                 
-                this.attributes['gameBerries'] = this.attributes['berries'];
+                this.attributes['quizArray'] = this.attributes['mainArray'];
                 this.attributes['skillState'] = 'quizMainMenu';
             
-                bodyTemplateMaker.call(this, 7, fruitsMainImage, 'Time to play ' + skillGameName + '!', null, null, speechOutput, reprompt); 
+                bodyTemplateMaker.call(this, 7, mainImage, 'Time to play ' + skillQuizName + '!', null, null, speechOutput, reprompt); 
             }
             else
-                speakOnly.call(this, 'Unfortunately, Berry Bash is not supported on this device, but you can still learn about the wonder of berries which in my opinion is far more fun. What would you like to do?');
+            {
+            	speechOutput = 'Unfortunately, ' + skillQuizName + ' is not supported on this device, but you can still learn about the wonder of berries which in my opinion is far more fun. What would you like to do?';
+            	reprompt = 'What would you like to do?';
+
+            	this.response.speak(speechOutput).listen(reprompt);
+			        
+			    this.attributes['lastOutputResponse'] = speechOutput;
+			        
+			    this.emit(':responseReady');
+            }
         }
-        else
-            speakOnly.call(this, 'You are already in the middle of a game. Please answer the question: ' + this.attributes['storedQuestion']);
+        else if (supportsDisplay.call(this) && !testingOnSim)
+        {
+        	var speechOutput = 'You are already in the middle of a game. Please answer the question: ' + this.attributes['storedQuestion'];
+
+        	this.response.speak(speechOutput);
+        	this.response.shouldEndSession(null);
+    		        
+		    this.attributes['lastOutputResponse'] = speechOutput;
+		        
+		    this.emit(':responseReady');
+        }
     },
     'AMAZON.RepeatIntent': function () {
-        speakOnly.call(this, this.attributes['lastOutputResponse']);
+    	var speechOutput = this.attributes['lastOutputResponse'];
+
+    	this.response.speak(speechOutput);
+    	this.response.shouldEndSession(null);
+        
+    	this.attributes['lastOutputResponse'] = speechOutput;
+        
+    	this.emit(':responseReady');
     },
     'AMAZON.StopIntent': function () {
         if (this.attributes['skillState'] == 'quitting') //Confirmation for leaving skill
@@ -170,9 +263,20 @@ const handlers = {
     },
     'AMAZON.HelpIntent': function () {//Provide instructions based on skill state
         newSessionHandler.call(this);
+
+        var speechOutput;
         
         if (this.attributes['skillState'] == 'gamePlaying')
-            speakOnly.call(this, 'In ' + skillGameName + ', you simply need to select the option that most resembles the berry being asked for in the question; either say 1 - 4, or touch the screen!');
+        {
+        	speechOutput = 'In ' + skillQuizName + ', you simply need to select the option that most resembles the ' + categorySingular + ' being asked for in the question; either say 1 - 4, or touch the screen!';
+        	
+        	this.response.speak(speechOutput);
+    		this.response.shouldEndSession(null);
+		        
+		    this.attributes['lastOutputResponse'] = speechOutput;
+		        
+		    this.emit(':responseReady');
+        }
         else
             showHome.call(this, null);
     },
@@ -183,54 +287,67 @@ const handlers = {
         {
             var optionsArray = this.attributes['onScreenOptions'];
             var correctQIndex = this.attributes['correctIndex'];
-            var quizBerries = this.attributes['QuizBerries'];
+            var quizOptions = this.attributes['QuizOptionArray'];
             var currentQNo = this.attributes['questionNumber'];
             var speechOutput;
             
             if (this.event.request.token) //User touched the screen
             {
-                if (currentQNo < quizBerries.length-1)
-                    handleAnswer.call(this, optionsArray[correctQIndex].token, this.event.request.token, quizBerries, false);
+                if (currentQNo < quizOptions.length-1)
+                    handleAnswer.call(this, optionsArray[correctQIndex].token, this.event.request.token, quizOptions, false);
                 else
-                    handleAnswer.call(this, optionsArray[correctQIndex].token, this.event.request.token, quizBerries, true);
+                    handleAnswer.call(this, optionsArray[correctQIndex].token, this.event.request.token, quizOptions, true);
             }
             else if (parseInt(this.event.request.intent.slots.numberValue.value)) //User said their choice
             {
                 var userChoiceNumber = parseInt(this.event.request.intent.slots.numberValue.value);
                 
-                if (currentQNo < quizBerries.length-1) //If still less than the amount of questions left
+                if (currentQNo < quizOptions.length-1) //If still less than the amount of questions left
                 {
                     if (userChoiceNumber > 0 && userChoiceNumber < optionsArray.length+1) //If their answer is between the amount of options..
-                        handleAnswer.call(this, correctQIndex+1, userChoiceNumber, quizBerries, false);
+                        handleAnswer.call(this, correctQIndex+1, userChoiceNumber, quizOptions, false);
                     else
                     {
-                        speechOutput = 'Please say a number between 1 and ' + optionsArray.length;
-                        speakOnly.call(this, speechOutput);
+                        speechOutput = 'Please select a number between 1 and ' + optionsArray.length;
+                        this.response.speak(speechOutput);
+    
+					    this.response.shouldEndSession(null);
+					        
+					    this.attributes['lastOutputResponse'] = speechOutput;
+					        
+					    this.emit(':responseReady');
                     }
                 }
                 else //Game has ended
-                    handleAnswer.call(this, correctQIndex+1, userChoiceNumber, quizBerries, true);
+                    handleAnswer.call(this, correctQIndex+1, userChoiceNumber, quizOptions, true);
             }
             else
                 handleUnknown.call(this);
         }
         else //User is not playing game
         {
-            var berryArray = this.attributes['berries'];
+            var objectArray = this.attributes['mainArray'];
             
             if (this.event.request.token) //Screen touched
             {
-                if (this.event.request.token == "berry_book_token") //Open berry book
+                if (this.event.request.token == "dictionary_token") //Open dictionary
                     showMainList.call(this);
-                else if (this.event.request.token == 'berry_buzz_token') //Start the game
+                else if (this.event.request.token == 'quiz_token') //Start the game
                     this.emit('QuizIntent');
-                else if (this.event.request.token == "read_fruit_info") //read out information
+                else if (this.event.request.token == "read_info_token") //read out information
                 {
-                    var selectedIndex = this.attributes['selectedFruitIndex'];
-                    speakOnly.call(this, berryArray[selectedIndex].info);
+                    var selectedIndex = this.attributes['selectedValueIndex'];
+                    var speechOutput = objectArray[selectedIndex].info;
+
+                    this.response.speak(speechOutput);
+				    this.response.shouldEndSession(null);
+
+				    this.attributes['lastOutputResponse'] = speechOutput;
+				        
+				    this.emit(':responseReady');
                 }
     
-                if (this.event.request.token == 'berry_list_token') //'Go back' action link selectex
+                if (this.event.request.token == "dictionary_token") //'Go back' action link selectex
                 {
                     resetAttributes.call(this);
                     showMainList.call(this);
@@ -238,36 +355,41 @@ const handlers = {
                 else //Something else selected, most likely from our main list (only list available outside of game)
                 {
                     var valueToken = this.event.request.token;
-                    var result = matchChecker(berryArray, valueToken);
+                    var result = matchChecker(objectArray, valueToken);
                     
-                    showSpecificFruitInfo.call(this, result, berryArray);
+                    showSpecificItemInfo.call(this, result, objectArray);
                 }
             }
-            else if (this.event.request.intent.slots.fruitValue.value) //If the user chooses their berry via voice
+            else if (this.event.request.intent.slots.fruitValue.value) //If the user chooses their selection via voice
             {
                 resetAttributes.call(this);
                 
                 var userFruit = this.event.request.intent.slots.fruitValue.value;
                 
-                var iresult = matchChecker(berryArray, userFruit);
+                var iresult = matchChecker(objectArray, userFruit);
                 
                 if (iresult)
-                    showSpecificFruitInfo.call(this, iresult, berryArray);
+                    showSpecificItemInfo.call(this, iresult, objectArray);
                 else
                     handleUnknown.call(this);
             }
-            else if (this.event.request.intent.slots.numberValue.value) //If the user chooses their berry via voice
+            else if (this.event.request.intent.slots.numberValue.value) //If the user chooses their selection via voice
             {
                 resetAttributes.call(this);
                 
                 var userChoiceNumber1 = parseInt(this.event.request.intent.slots.numberValue.value);
                 
-                if (userChoiceNumber1 > 0 && userChoiceNumber1 < berryArray.length + 1) //If within the range of options offered
-                    showSpecificFruitInfo.call(this, userChoiceNumber1-1, berryArray);
+                if (userChoiceNumber1 > 0 && userChoiceNumber1 < objectArray.length + 1) //If within the range of options offered
+                    showSpecificItemInfo.call(this, userChoiceNumber1-1, objectArray);
                 else
                 {
-                    speechOutput = 'Please say a number between 1 and ' + berryArray.length;
-                    speakOnly.call(this, speechOutput);
+                    speechOutput = 'Please say a number between 1 and ' + objectArray.length;
+
+                    this.response.speak(speechOutput);
+				    this.response.shouldEndSession(null);
+				    this.attributes['lastOutputResponse'] = speechOutput;
+				        
+				    this.emit(':responseReady');
                 }
             }
             else //If this intent is hit without the needed data 
@@ -380,31 +502,23 @@ function speakOnly(pSpeechOutput, pReprompt)
 function confirmExit()
 {
     var speechOutput = 'Are you sure you would like to quit ' + skillName + '?';
+    var reprompt = speechOutput;
     this.attributes['skillState'] = 'quitting';
-    speakOnly.call(this, speechOutput, speechOutput);
+
+    this.response.speak(speechOutput).listen(reprompt);
+        
+    this.attributes['lastOutputResponse'] = speechOutput;
+        
+    this.emit(':responseReady');
 }
 
 function matchChecker(pArray, pCompare1)
 {
-    for (var i = 0 ; i < pArray.length; i++) //Find out which berry
+    for (var i = 0 ; i < pArray.length; i++) //Find out which value
     {
         if (pCompare1.toLowerCase() == pArray[i].name.toLowerCase() || pCompare1.toLowerCase() == pArray[i].token.toLowerCase())
             return i; //Returns index of match for later use
     }
-}
-
-function setUpQuizBerries() //Shuffles our berries, and takes some for the quiz
-{
-    var berryArray = this.attributes['gameBerries'];
-    
-    berryArray = shuffle(berryArray);
-    
-    var randomBerries = [];
-    
-    for (var i = 0; i < GAMELENGTH; i++)
-        randomBerries[i] = berryArray[i];
-    
-    this.attributes['QuizBerries'] = shuffle(randomBerries);
 }
 
 function handleAnswer(pCorrectAnswer, pUserAnswer, pArray, pGameFinished)
@@ -455,19 +569,25 @@ function handleAnswer(pCorrectAnswer, pUserAnswer, pArray, pGameFinished)
         if (supportsDisplay.call(this) && !testingOnSim)
             bodyTemplateMaker.call(this, 2, gameoverImage, cardTitle, '<b><font size="7">' + correctAnswersVal + ' / ' + pArray.length + ' correct.</font></b>', '<br/>' + speechOutput2, speechOutput, null, "tell me about berries"); 
         else
-            speakOnly.call(this, speechOutput);
+        {
+            this.response.speak(speechOutput);
+            this.response.shouldEndSession(null);		        
+		    this.attributes['lastOutputResponse'] = speechOutput;
+	
+		    this.emit(':responseReady');
+        }
     }
 }
 
 function resetAttributes()
 {
     this.attributes['skillState'] = null;
-    this.attributes['selectedFruitIndex'] = null;
+    this.attributes['selectedValueIndex'] = null;
     this.attributes['questionNumber'] = null;
     this.attributes['correctIndex'] = null;
     this.attributes['onScreenOptions'] = null;
-    this.attributes['gameBerries'] = null;
-    this.attributes['QuizBerries'] = null;
+    this.attributes['quizArray'] = null;
+    this.attributes['QuizOptionArray'] = null;
     this.attributes['correctAnswersNo'] = null;
     this.attributes['storedQuestion'] = null;
 }
@@ -479,32 +599,30 @@ function showHome(pSpeechOutput)
      var speechOutput = pSpeechOutput || '';
      var cardTitle = skillName;
      
-     var actionText1 = '<action value="berry_book_token"><i>' + skillDictionaryName + '</i></action>'; //Selectable text
-     var actionText2 = '<action value="berry_buzz_token"><i>' + skillGameName + '</i></action>';
+     var actionText1 = '<action value="dictionary_token"><i>' + skillDictionaryName + '</i></action>'; //Selectable text
+     var actionText2 = '<action value="quiz_token"><i>' + skillQuizName + '</i></action>';
      
-     speechOutput += 'Simply ask me to provide information about berries from the Berry Book.'; 
+     speechOutput += 'Simply ask me to provide information about berries from the ' + skillDictionaryName + '.'; 
 
      if (supportsDisplay.call(this) && !testingOnSim)
      {
-        speechOutput += ' However, if you are feeling lucky, ask for a quick game of Berry Buzz.';
+        speechOutput += ' However, if you are feeling lucky, ask for a quick game of ' + skillQuizName + '.';
         var text = '<u><font size="7">' + skillName + '</font></u><br/><br/>Simply ask me to provide information about berries from the ' + actionText1 + '. However, if you are feeling lucky, ask for a quick game of ' + actionText2 + '.'; 
-        bodyTemplateMaker.call(this, 3, fruitsMainImage, cardTitle, null, text, speechOutput, null); 
+        bodyTemplateMaker.call(this, 3, mainImage, cardTitle, null, text, speechOutput, null); 
      }
     else
         speakOnly.call(this, speechOutput + ' What would you like to do?');
  }
 
-function createBerry(pName, pImageURL, pInfo, pOrigin) //Berry object
+function createArrayValue(pName, pImageURL, pInfo, pOrigin) //object creation
 {
-    var berry = {
+    var value = {
         name        : pName,
         imageURL     : pImageURL,
         info : pInfo,
-        token : pName + 'Token',
-        origin : pOrigin
     };
     
-    return berry;
+    return value;
 }
 
 function supportsDisplay() {
@@ -521,46 +639,49 @@ function supportsDisplay() {
 function handleUnknown() //For when Alexa doesn't understand the user
 {
     var speechOutput = 'I am sorry. I did not quite get that one. Could you try again?';
-    var reprompt = 'Would you like to hear about another berry?';
+    var reprompt = 'Could you try again?';
     
-    speakOnly.call(this, speechOutput, reprompt);
+    this.response.speak(speechOutput).listen(reprompt);
+    this.attributes['lastOutputResponse'] = speechOutput;
+        
+    this.emit(':responseReady');
 }
 
 function generateNewQuestion(pSpeechOutput, pQuestionNo)
 {
-    var berryArray = this.attributes['gameBerries'];
-    var quizBerries = this.attributes['QuizBerries'];
+    var objectArray = this.attributes['quizArray'];
+    var quizOptions = this.attributes['QuizOptionArray'];
     var questionAskType = ['Which of these looks like ', 'Please select the image that represents ', 'Do you know which of these look like '];
             
     var question;
-    question = 'Question ' + (pQuestionNo+1) + ': ' + questionAskType[getRandomVal(0, 3)] + quizBerries[pQuestionNo].name + '?';
+    question = 'Question ' + (pQuestionNo+1) + ': ' + questionAskType[getRandomVal(0, 3)] + quizOptions[pQuestionNo].name + '?';
     this.attributes['storedQuestion'] = question;
     
     pSpeechOutput += question;
     var index;
     
-    for (var i = 0; i < berryArray.length; i++) //Find the new correcy berry index for the next question
+    for (var i = 0; i < objectArray.length; i++) //Find the correct index for the next question
     {
-        if (berryArray[i].name == quizBerries[pQuestionNo].name)
+        if (objectArray[i].name == quizOptions[pQuestionNo].name)
         {
             index = i;
             break;
         }
     }
     
-    berryArray.splice(index, 1); //Take it out of the main array
-    berryArray = shuffle(berryArray);
+    objectArray.splice(index, 1); //Take it out of the main array
+    objectArray = shuffle(objectArray);
     
-    var optionsArray = [quizBerries[pQuestionNo]]; //Add correct answer to new array
+    var optionsArray = [quizOptions[pQuestionNo]]; //Add correct answer to new array
     
     for (var i = 1; i < 4; i++)
-        optionsArray[i] = berryArray[i]; //Add other random options to confuse user
+        optionsArray[i] = objectArray[i]; //Add other random options to confuse user
     
     optionsArray = shuffle(optionsArray);
     
     for (var i = 0; i < optionsArray.length; i++)
     {
-        if (optionsArray[i].name == quizBerries[pQuestionNo].name)
+        if (optionsArray[i].name == quizOptions[pQuestionNo].name)
         {
             this.attributes['correctIndex'] = i; //Find the correct answer index and save for later
             break;
@@ -573,7 +694,7 @@ function generateNewQuestion(pSpeechOutput, pQuestionNo)
     listTemplateMaker.call(this, optionsArray, 2, question, pSpeechOutput, true);
 }
 
-function showMainList() //For main list of fruit in berry book
+function showMainList() //For main list of values in the dictionary
 {
     var speechOutput;
     
@@ -581,21 +702,24 @@ function showMainList() //For main list of fruit in berry book
 
     if (supportsDisplay.call(this) && !testingOnSim)
     {
-        speechOutput = 'Select or ask for a berry below for more information.';
-        listTemplateMaker.call(this, this.attributes['berries'], 1, speechOutput, speechOutput);
+        speechOutput = 'Select or ask for a ' + categorySingular + ' below for more information.';
+        listTemplateMaker.call(this, this.attributes['mainArray'], 1, speechOutput, speechOutput);
     }
     else
     {
-        var berryArray = this.attributes['berries'];
+        var objectArray = this.attributes['mainArray'];
             
-        speechOutput = "I have a range of berries I can tell you about including: ";
+        speechOutput = "I have a range of " + categoryPlural + " I can tell you about including: ";
         
-        for (var i = 0; i < berryArray.length; i++)
-            speechOutput += berryArray[i].name + ', ';
+        for (var i = 0; i < objectArray.length; i++)
+            speechOutput += objectArray[i].name + ', ';
             
         speechOutput += "which would you like to hear about?";
         
-        speakOnly.call(this, speechOutput);
+        this.response.speak(speechOutput).listen(speechOutput);
+	        
+	    this.attributes['lastOutputResponse'] = speechOutput;        
+	    this.emit(':responseReady');
     }
 }
 
@@ -603,28 +727,37 @@ function newSessionHandler() //Called every intent to handle modal/one shot utte
 {
     if (this.event.session.new)
     {
-        var berriesArray = [];
+        var categoryArray = [];
         
-        for (var i = 0 ; i < berryNames.length; i++) //We create a new set of berries here
-            berriesArray[i] = createBerry(berryNames[i], berryImgURLs[i], berryInfo[i]);
+        for (var i = 0 ; i < arrayNames.length; i++) //We create a new set of the specified category values here
+            categoryArray[i] = createArrayValue(arrayNames[i], arrayImages[i], arrayInfo[i]);
         
-        this.attributes['berries'] = shuffle(berriesArray); //And then randomise them each time the skill starts
+        this.attributes['mainArray'] = shuffle(categoryArray); //And then randomise them each time the skill starts
     }
 }
 
-function showSpecificFruitInfo(pIndex, pArray) //User has selected a single fruit to get more info
+function showSpecificItemInfo(pIndex, pArray) //User has selected a single fruit to get more info
 {
-    this.attributes['selectedFruitIndex'] = pIndex;
+    this.attributes['selectedValueIndex'] = pIndex;
     
     if (supportsDisplay.call(this) && !testingOnSim)
-        bodyTemplateMaker.call(this, 3, pArray[pIndex].imageURL, capitalizeFirstLetter(pArray[pIndex].name), '<action value="read_fruit_info"><b>Read</b></action> | <action value="berry_list_token"><b>Back</b></action><br/>', pArray[pIndex].info, 'Here is some information about ' + pArray[pIndex].name + '.', null, 'test me on berries');
+        bodyTemplateMaker.call(this, 3, pArray[pIndex].imageURL, capitalizeFirstLetter(pArray[pIndex].name), '<action value="read_info_token"><b>Read</b></action> | <action value="dictionary_token"><b>Back</b></action><br/>', pArray[pIndex].info, 'Here is some information about ' + pArray[pIndex].name + '.', null, 'test me on ' + categoryPlural);
     else
-        speakOnly.call(this, pArray[pIndex].info + ' Which fruit would you like to hear about now?');
+    {
+    	var reprompt = 'Which ' + categorySingular + ' would you like to hear about now?';
+        var speechOutput = pArray[pIndex].info + ' ' + reprompt;
+
+        this.response.speak(speechOutput).listen(reprompt);
+	        
+	    this.attributes['lastOutputResponse'] = speechOutput;
+	        
+	    this.emit(':responseReady');
+    }
 }
 
 function endSkill()
 {
-    var speechOutput = "Thanks for checking out " + skillName + ". Learn more about berries another time. Goodbye!"
+    var speechOutput = "Thanks for checking out " + skillName + ". Learn more about " + categoryPlural + " another time. Goodbye!"
     this.response.speak(speechOutput);
     this.emit(':responseReady');
 }
