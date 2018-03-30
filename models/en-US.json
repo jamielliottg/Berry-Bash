@@ -103,6 +103,10 @@
 					"name": "AMAZON.PageDownIntent",
 					"samples": []
 				},
+                                {
+					"name": "AMAZON.NavigateHomeIntent",
+					"samples": []
+				},
 				{
 					"name": "AMAZON.PageUpIntent",
 					"samples": []
