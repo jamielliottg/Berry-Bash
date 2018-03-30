@@ -3,7 +3,7 @@
 
 ## Customize the Skill to be Yours
 
-At this point, you should have a working copy of our Berry Bible skill. In order to make it your own, you will need to customize it with data and responses that you create.  Here are the things you will need to change:
+At this point, you should have a working copy of our Berry Bash skill. In order to make it your own, you will need to customize it with data and responses that you create.  Here are the things you will need to change:
 
 1.  **New data.** You can create a new dataset for your skill that *isn't* related to berries. In fact, if you have the relevant information and pictures, you can change it however you like!
 
