@@ -265,6 +265,23 @@ const handlers = {
 		    this.emit(':responseReady');
         }
     },
+    'MoreInfoIntent': function () {
+        if (this.attributes['selectedValueIndex'])
+        {
+            var objectArray = this.attributes['mainArray'];
+            var selectedVal = this.attributes['selectedValueIndex'];
+            var speechOutput = objectArray[selectedVal].info;
+
+        	this.response.speak(speechOutput);
+        	this.response.shouldEndSession(null);
+            
+        	this.attributes['lastOutputResponse'] = speechOutput;
+            
+        	this.emit(':responseReady');
+        }
+        else
+            handleUnknown.call(this);
+    },
     'AMAZON.RepeatIntent': function () {
     	var speechOutput = this.attributes['lastOutputResponse'];
 
@@ -388,9 +405,6 @@ const handlers = {
                 resetAttributes.call(this);
                 
                 var userFruit = this.event.request.intent.slots.fruitValue.value;
-                
-                console.log(objectArray)
-                console.log(userFruit)
                 
                 var iresult = matchChecker(objectArray, userFruit);
                 
