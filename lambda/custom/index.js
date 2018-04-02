@@ -498,7 +498,7 @@ function bodyTemplateMaker(pBodyTemplateType, pImg, pTitle, pText1, pText2, pOut
     this.emit(':responseReady');
 }
 
-function listTemplateMaker(pNum) {
+function listTemplateTypePicker(pNum) {
     var val;
 
     switch (pNum) {
@@ -517,7 +517,7 @@ function listTemplateMaker(pNum) {
 
 function listTemplateMaker(pArray, pType, pTitle, pOutputSpeech, pQuiz, pBackgroundIMG) {
     const listItemBuilder = new Alexa.templateBuilders.ListItemBuilder();
-    var listTemplateBuilder = listTemplateMaker(pType);
+    var listTemplateBuilder = listTemplateTypePicker(pType);
 
     if (!pQuiz) {
         for (var i = 0; i < pArray.length; i++)
