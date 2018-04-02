@@ -11,7 +11,7 @@ var categoryPlural = 'berries';
 var categorySingular = 'berry';
 
 var mainImage = 'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/background-berries-berry-blackberries-87818+(1).jpeg';
-var mainImgBlurBG = 'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/blur_main.fw.png';
+var mainImgBlurBG = 'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/main_blur2.png';
 
 var topicData = {
     "raspberries": {
@@ -213,7 +213,7 @@ const handlers = {
                 this.attributes['quizArray'] = this.attributes['mainArray'];
                 this.attributes['skillState'] = 'quizMainMenu';
             
-                bodyTemplateMaker.call(this, 7, mainImage, 'Time to play ' + skillQuizName + '!', null, null, speechOutput, reprompt); 
+                bodyTemplateMaker.call(this, 7, mainImage, 'Time to play ' + skillQuizName + '!', null, null, speechOutput, reprompt, null, mainImgBlurBG); 
             }
             else
             {
@@ -506,7 +506,7 @@ function bodyTemplateMaker(pBodyTemplateType, pImg, pTitle, pText1, pText2, pOut
     this.emit(':responseReady');
 }
 
-function listTemplateMaker(pArray, pType, pTitle, pOutputSpeech, pQuiz)
+function listTemplateMaker(pArray, pType, pTitle, pOutputSpeech, pQuiz, pBackgroundIMG)
 {
     const listItemBuilder = new Alexa.templateBuilders.ListItemBuilder();
     var listTemplateBuilder;
@@ -531,6 +531,9 @@ function listTemplateMaker(pArray, pType, pTitle, pOutputSpeech, pQuiz)
     const listTemplate = listTemplateBuilder.setTitle(pTitle)
     										.setListItems(listItems)
     										.build();
+    										
+    if (pBackgroundIMG)
+        listTemplateBuilder.setBackgroundImage(makeImage(pBackgroundIMG));
     										
     this.attributes['lastOutputResponse'] = pOutputSpeech;
     
@@ -659,6 +662,8 @@ function generateNewQuestion(pSpeechOutput, pQuestionNo)
     pSpeechOutput += question;
     var index;
     
+    question = 'Question ' + (pQuestionNo+1) + '/' + GAMELENGTH + ': ' + 'Which one looks like ' + quizOptions[pQuestionNo].name + '?';
+    
     for (var i = 0; i < objectArray.length; i++) //Find the correct index for the next question
     {
         if (objectArray[i].name == quizOptions[pQuestionNo].name)
@@ -690,7 +695,7 @@ function generateNewQuestion(pSpeechOutput, pQuestionNo)
     this.attributes['onScreenOptions'] = optionsArray;
     this.attributes['questionNumber'] = pQuestionNo;
 
-    listTemplateMaker.call(this, optionsArray, 2, question, pSpeechOutput, true);
+    listTemplateMaker.call(this, optionsArray, 2, question, pSpeechOutput, true, mainImgBlurBG);
 }
 
 function showMainList() //For main list of values in the dictionary
@@ -702,7 +707,7 @@ function showMainList() //For main list of values in the dictionary
     if (supportsDisplay.call(this) && !testingOnSim)
     {
         speechOutput = 'Select or ask for a ' + categorySingular + ' below for more information.';
-        listTemplateMaker.call(this, this.attributes['mainArray'], 1, speechOutput, speechOutput);
+        listTemplateMaker.call(this, this.attributes['mainArray'], 1, speechOutput, speechOutput, null, mainImgBlurBG);
     }
     else
     {
@@ -783,7 +788,7 @@ function showSkillIntro(pSpeechOutput)
      {
         speechOutput += ' However, if you are feeling lucky, ask for a quick game of ' + skillQuizName + '.';
 		var text = '<u><font size="7">' + skillName + '</font></u><br/><br/>Simply ask me to provide information about ' + categoryPlural + ' from the ' + actionText1 + '. However, if you are feeling lucky, ask for a quick game of ' + actionText2 + '.'; 
-		bodyTemplateMaker.call(this, 3, mainImage, cardTitle, null, text, speechOutput, null); 
+		bodyTemplateMaker.call(this, 3, mainImage, cardTitle, null, text, speechOutput, null, null, mainImgBlurBG); 
      }
     else
         reprompt = 'What would you like to do?';
