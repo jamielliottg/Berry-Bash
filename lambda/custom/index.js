@@ -1,8 +1,14 @@
+////////////////////////////////////////////////////////////////////////////////////
+/* The following code is from an Alexa Cookbook example that allows you to create your very own
+quiz/dictionary Alexa Skill with multi modal support (and non-screen support too). You can do
+this by following the guide here [INSERT_LINK] and modifying the data values below. */
+////////////////////////////////////////////////////////////////////////////////////
+
 'use strict';
 
 const Alexa = require('alexa-sdk');
 
-/////////1. Static strings///////////////////////////////////Modify the hard coded data below to make this skill your own!
+/////////1. Static strings///////////////////////////////////Modify the hard coded data below to make this skill your own!///
 //Skill data
 var skillName = 'Berry Bash';
 var skillQuizName = 'Berry Buzz';
@@ -55,6 +61,7 @@ var topicData = {
         "info": "Goji, goji berry, or wolfberry is the fruit of either the Lycium barbarum or Lycium chinense, two closely related species of boxthorn in the nightshade family, Solanaceae. The family also includes the potato, tomato, eggplant, belladonna, chili pepper, and tobacco. The two species are native to Asia."
     }
 }
+////////////////////////////////////////////////////////////Modify the values above to make this skill your own!
 // Info sourced from fruitsinfo.com
 // Royalty free images sourced from pexels/pixabay. See bottom of codes for links
  
