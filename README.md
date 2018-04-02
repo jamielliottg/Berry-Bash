@@ -75,14 +75,8 @@ Alexa, ask Berry Bash to tell me about strawberries
 
 ASK CLI will create the skill and the lambda function for you. The Lambda function will be created in ```us-east-1 (Northern Virginia)``` by default.
 
-1. Deploy the skill and the lambda function in one step by running the following command:
+1. Deploy the skill and the lambda function in one step by running the following command (from the folder root):
 
-If not already in root of project folder:
-	```bash
-	$ cd ..
-	$ cd ..
-	```
-If in root of project folder:	
 	```bash
 	$ ask deploy
 	```
