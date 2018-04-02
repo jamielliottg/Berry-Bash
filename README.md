@@ -7,7 +7,7 @@
 
 # Adding screens to your voice experience
 
-This Alexa sample skill demonstrates the use of interactive render template directives through multi modal screen design. It provides an infrastructure that on one hand, provides lists to users to allow them to select from and get more information about topics. On the other hand, it also provides users with a quiz that supports both touch and voice control. It can also be used as a template as you can modify the hard coded data to offer choices and information about your chosen topic.
+This Alexa sample skill demonstrates the use of interactive render template directives through multi modal screen design. It provides an infrastructure that on one hand, provides lists to users to allow them to select from and get more information about topics (which are then rendered via body templates). On the other hand, it also provides users with a quiz that supports both touch and voice control. **Most importantly, the skill has been designed in such a way that you can modify the core skill data to any category you like!**
 
 If this is your first time here, you're new to Alexa Skills Development, or you're looking for more detailed instructions, click the **Get Started** button below:
 
@@ -28,9 +28,9 @@ Be sure to take a look at the [Additional Resources](#additional-resources) at t
 
 ```text
 Alexa, open Berry Bash.
-	>> Welcome to Berry Bash
+	>> Welcome to Berry Bash..
 
-Alexa, ask Berry Bash to tell me about strawberries
+Alexa, ask Berry Bash to tell me about raspberries
 ```
 
 ### Repository Contents
