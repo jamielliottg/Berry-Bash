@@ -23,9 +23,9 @@ While it's not specific to your skill, the simulator is a valuable testing tool 
 * **Voice & Tone** - Type a word into the box, and click the "Listen" button to hear how Alexa will
 pronounce it. To make changes to her pronunciation, use Speech Synthesis Markup Language [(SSML)](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speech-synthesis-markup-language-ssml-reference) to modify how Alexa will interpret text to speech.
 
-4.  **Test your skill with the Service Simulator.** To validate that your skill is working as expected, use the Service Simulator.  In the **Enter Utterance** text box, type "open berry bash" (or whatever your invocation name is)
+4.  **Test your skill with the Service Simulator.** To validate that your skill is working as expected, use the Service Simulator.  In the **Enter Utterance** text box, type "open berry bash" or whatever your invocation name is (selecting the microphone also lets you use your voice)
 
-    <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/fact/4-4-service-simulator._TTH_.png" />  <!-- YOU NEED TO MAKE YOUR OWN VERSION OF THIS IMAGE.  -->
+    <img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/convo.PNG" />
 
     ### Service Simulator Tips
     * After you click the "Ask [Your Skill Name]" button, you should see the **Lambda Request** and **Lambda Response** boxes get populated with JSON data like in the screenshot above.
