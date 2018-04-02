@@ -9,7 +9,10 @@ At this point, you should have a working copy of our Berry Bash skill. In order 
 
     1.  **Open a copy of index.js.** If you haven't already downloaded the code for this project, [you can find a copy of index.js here on GitHub](../lambda/custom/index.js).  You can use a simple, lightweight code editor like [Atom](http://atom.io), [Sublime Text](http://sublimetext.com), or [VSCode](http://code.visualstudio.com), but you also have the option to edit the code directly in your Lambda function.
 
-    2.  **Search for the comment "/////////Code data"**  Below this is the data for our skill.  You can see that there are different arrays for different values related to each individual item; these are used to create objects later on. If you want to add more properties, just create another array and ensure it's added to the constructor in the 'createBerry' function.
+    2.  **Search for the comment "1. Static strings"**  Below this is the data used for our skill. You can see that there are different variables for different parts of the skill. Focus on the big table of data in the '**topicData** array, pick a cateogry (food, sports, cities, whatever) and swap your own resources in. Feel free to add more entries, or take some away if you like. **Because of the quiz length (which you can also change if you want), you'll need at least 5 values in the array, each with a name, image URL and description.**
+    
+    <img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/topicData.PNG"/>
+    
     
     3.  **Experiment with render template types**  The code at the moment uses a few types of body templates and list templates, but you can see that we have quite the selection available over [here](https://developer.amazon.com/docs/custom-skills/display-interface-reference.html). 
 
