@@ -283,7 +283,7 @@ const handlers = {
         } else
             showSkillIntro.call(this, null);
     },
-    'ElementSelected': function() { //To handle events when the screen is touched
+    'ElementSelected': function() { //To handle interaction events
         newSessionHandler.call(this);
 
         if (this.attributes['skillState'] == 'gamePlaying') {
