@@ -190,7 +190,8 @@
 					"samples": [
 						"keep going",
 						"tell me more",
-						"read out the rest"
+						"read out the rest",
+						"read"
 					],
 					"slots": []
 				},
