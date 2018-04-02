@@ -31,8 +31,6 @@ At this point, you should have a working copy of our Berry Bash skill. In order 
 
     4.  **When you have replaced the data in index.js, copy the contents of your file to your Lambda function.**  This should be as simple as copying the text, and pasting it into the code box for your Lambda.
 
-        <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/quiz-game/5-1-5-lambda-code-box._TTH_.png" />
-
 2.  **New language.** If you are creating this skill for another language other than English, you will need to make sure Alexa's responses are also in that language.
 
     *  For example, if you are creating your skill in German, every single response that Alexa makes has to be in German.  You can't use English responses or your skill will fail certification.
