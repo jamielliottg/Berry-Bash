@@ -66,6 +66,8 @@ Don't forget to select **Save Model** if you add any new ones.
 
 <img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/build_save.PNG" />
    
+Ready to move on? Lets look at how we get our Alexa Skill to respond!
+
 <br/><br/>
 [![Next: Lambda Function](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/buttons/button_next_lambda_function._TTH_.png)](./2-lambda-function.md)
 
