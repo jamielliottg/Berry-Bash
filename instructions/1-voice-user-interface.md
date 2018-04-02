@@ -13,17 +13,17 @@ There are two parts to an Alexa skill.  The first part is the [Voice User Interf
 
     <a href="https://developer.amazon.com/edw/home.html#/" target="_new"><img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/1-2-alexa-button._TTH_.png" /></a>
 
-3.  **On the Alexa page, choose the "Get Started" button for the Alexa Skills Kit.**
+3.  **On the Alexa page, select 'Create Skill'.**
 
-    <a href="https://developer.amazon.com/edw/home.html#/skills/list" target="_new"><img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/1-3-alexa-skills-kit._TTH_.png" /></a>
+    <a href="https://developer.amazon.com/edw/home.html#/skills/list" target="_new"><img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/create_skill.PNG" /></a>
 
-4.  **Select "Add A New Skill."** This will get you to the first page of your new Alexa skill.
+4.  **Fill out a skill name (leave locale to US)**  
 
-    <a href="https://developer.amazon.com/edw/home.html#/skill/create/" target="_new"><img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/1-4-add-a-new-skill._TTH_.png" /></a>
+    <img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/skill_name.PNG" />
+   
+5.  **Select Cusom Skill**
 
-5.  **Fill out the Skill Information screen.**  Make sure to review the tips we provide below the screenshot.
-
-    <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/1-5-skill-information._TTH_.png" />
+    <img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/custom_skill.PNG" />
 
     ### Skill Information Tips
     1.  **Skill Type** For this skill, we are creating a skill using the Custom Interaction Model.  This is the default choice.
