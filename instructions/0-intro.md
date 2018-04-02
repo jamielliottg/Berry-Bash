@@ -29,6 +29,8 @@ You may have already produced something like this, but using the Berry Bash skil
 * Screen Interaction
 * Voice Interaction (with on screen elements)
 
+Being voice first, we will also ensure that for those users who are using your skill on a device without a screen, the core experience is still offered. We want to remember, being #voicefirst, you should use multi modal design to **compliment** the experience; not rely on it.
+
 # Let's Get Started
 
 <a href="./1-voice-user-interface.md"><img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/buttons/button_get_started._TTH_.png" /></a>
