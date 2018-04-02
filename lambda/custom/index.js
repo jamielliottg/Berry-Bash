@@ -22,9 +22,9 @@ var negativeSpeechconArray = ['wah wah', 'uh oh', 'tosh', 'quack', 'oof', 'oh de
 var correctResponses = ['That is correct.', 'You got it!', 'Nice one.', 'There you go.', 'Awesome', 'Congratulations.'];
 var wrongResponses = ['Oh no.', 'That is wrong.', 'Incorrect.', 'Unlucky.', 'Maybe next time.', 'Nearly.'];
 
-var mainImage = 'http://i.telegraph.co.uk/multimedia/archive/03418/Berries-Jacqueline_3418530b.jpg';
-var secondPlaceImage = 'http://www.sticker.com/picture_library/product_images/award-ribbons/72435_2nd-second-place-award-ribbon-stickers-and-labels.png';
-var firstPlaceImage = 'http://www.sticker.com/picture_library/product_images/award-ribbons/72430_1st-first-place-award-ribbon-stickers-and-labels.png';
+var mainImage = 'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/background-berries-berry-blackberries-87818+(1).jpeg';
+var secondPlaceImage = 'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/medal-2163349_640.png';
+var firstPlaceImage = 'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/medal-2163347_640.png';
 
 var arrayNames = ['raspberries',
     'blackberries',
@@ -34,19 +34,19 @@ var arrayNames = ['raspberries',
     'gooseberries',
     'cranberries',
     'huckleberries',
-    'bilberries',
+    'cherries',
     'gojiberries'];
     
-var arrayImages = ['http://www.publicdomainpictures.net/pictures/10000/velka/1-1248158051Ix2h.jpg',
-'https://www.organicfacts.net/wp-content/uploads/2013/06/blackberry.jpg',
-'https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/PerfectStrawberry.jpg/220px-PerfectStrawberry.jpg',
-'https://wishfarms.com/wp-content/uploads/2015/09/berries_main_image2.jpg',
-'https://www.organicfacts.net/wp-content/uploads/elderberry.jpg',
-'https://ripeme.com/wp-content/uploads/Gooseberry.jpg',
-'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/CrangameBerries0101210.jpg/220px-CrangameBerries0101210.jpg',
-'https://hartmannsplantcompany.com/wholesale/wp-content/uploads/sites/3/2015/04/michigan-huckleberry.jpg',
-'https://www.organicfacts.net/wp-content/uploads/2013/06/billberries.jpg',
-'https://www.healthline.com/hlcmsresource/images/topic_centers/Food-Nutrition/1296x728_8-Healthy-Facts-About-Goji-Berries_IMAGE_1.jpg'];
+var arrayImages = ['https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/raspberry-fruits-fresh-red-52536.jpeg',
+'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/pexels-photo-892808.jpeg',
+'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/pexels-photo-583840.jpeg',
+'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/summer-blueberries-stephanie-herington.jpg',
+'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/elder-black-elderberry-sambucus-nigra-holder-51962.jpeg',
+'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/currant-immature-bush-berry-54332.jpeg',
+'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/pexels-photo-306800.jpeg',
+'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/pexels-photo-139749.jpeg',
+'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/pexels-photo-175727.jpeg',
+'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/goji-3162716_640.jpg'];
 
 var arrayInfo = ['The Raspberry or Red Raspberry is the plant that produces a tart, sweet, red composite fruit in the late summer and early autumn. In proper botanical language, it is not a berry at all, but instead an aggregate fruit of numerous drupelets around the central core.',
 'The blackberry is an edible fruit produced by many species in the Rubus genus in the Rosaceae family, hybrids among these species within the Rubus subgenus, and hybrids between the Rubus and Idaeobatus subgenera.',
@@ -56,7 +56,7 @@ var arrayInfo = ['The Raspberry or Red Raspberry is the plant that produces a ta
 'Indian gooseberry fruits are of small size and light green in color. They have 6 vertical grooves on them. The taste of the fruit can be described as strong, harsh, and rough. This fruit is round shaped with vertical stripes and has a hard seed inside.',
 'Cranberries are low, creeping shrubs or vines up to 2 metres long and 5 to 20 centimetres in height; they have slender, wiry stems that are not thickly woody and have small evergreen leaves. The flowers are dark pink, with very distinct reflexed petals, leaving the style and stamens fully exposed and pointing forward. They are pollinated by bees. The fruit is a berry that is larger than the leaves of the plant; it is initially light green, turning red when ripe. It is edible, but with an acidic taste that usually overwhelms its sweetness.',
 'Huckleberry otherwise called hurtleberry is the native fruit of North America. The fruit appear in various dark colors such as red, blue and black and each berry measures 5-10mm in diameter. The fruit is completely edible and possesses a unique sweet taste. These berries are used as a major flavoring agent in juice, tea, soup, pudding, pie, pancakes and jam. It is also used for treating pain and healing heart disease and infections.',
-'Bilberry is a name given to species of low-growing shrubs of the genus Vaccinium that bear tasty fruits. This species also known as blaeberry, whortleberry, whinberry, myrtle blueberry, and other names regionally. Bilberries are rarely cultivated but fruits are sometimes collected from wild plants growing on public lands, especially in Scandinavia and Poland.',
+'Cherries are found in the wild and have been domesticated for centuries. There is a myriad of cherry types, resulting from new varieties and hybrids developed for hardiness and flavor. This fruit is found in Asia, Europe, and North America, with Iran, Turkey, United States, Germany, and Italy leading in the production of cherries.',
 'Goji, goji berry, or wolfberry is the fruit of either the Lycium barbarum or Lycium chinense, two closely related species of boxthorn in the nightshade family, Solanaceae. The family also includes the potato, tomato, eggplant, belladonna, chili pepper, and tobacco. The two species are native to Asia.'];
  /////Sourced from fruitsinfo.com
  
@@ -356,7 +356,7 @@ const handlers = {
                 {
                     var valueToken = this.event.request.token;
                     var result = matchChecker(objectArray, valueToken);
-                    
+                   
                     showSpecificItemInfo.call(this, result, objectArray);
                 }
             }
