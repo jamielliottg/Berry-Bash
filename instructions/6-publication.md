@@ -101,7 +101,7 @@ We are almost done!  The last step is to add the metadata that your skill will u
 
     *  **Certification can take several days to complete.** Please be patient.  It takes time because we want to get it right.
 
-    *  **Did something go wrong?** Reach out directly here: [Forum](alexa.design/forum) - [Contact Us](alexa.design/contactus)
+    *  **Did something go wrong?** Reach out directly here: [Forum](www.alexa.design/forum) - [Contact Us](www.alexa.design/contactus)
 
     *  **Want the coolest t-shirt you've ever seen?** Every month, we create a brand-new Alexa Developer t-shirt or hoodie, and send them out to developers that published a skill that month.  [You can get yours here if you live in the US](https://developer.amazon.com/alexa-skills-kit/alexa-developer-skill-promotion), [here for the UK](https://developer.amazon.com/en-gb/alexa-skills-kit/alexa-developer-skill-promotion), and [here for Germany](https://developer.amazon.com/de-de/alexa-skills-kit/alexa-developer-skill-promotion).
 
