@@ -16,26 +16,14 @@ So far, we have [created a Voice User Interface](./1-voice-user-interface.md) an
 
 <img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/test2.PNG" />
 
-While it's not specific to your skill, the Voice Simulator is a valuable testing tool for every skill. Type a word into the box, and click the "Listen" button to hear how Alexa will
-pronounce it. To make changes to her pronunciation, use Speech Synthesis Markup Language [(SSML)](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speech-synthesis-markup-language-ssml-reference) to modify how Alexa will interpret text to speech. Try these examples:
+While it's not specific to your skill, the simulator is a valuable testing tool for every skill. There are 3 main parts:
 
-    ```html
-    <say-as interpret-as="number">12345</say-as>
-    ```
+* The **Alexa Simulator** is like a virtual Alexa device. You can ask for the time, the weather; most importantly, you can test your skill by invoking it, such as 'open <invocation_name>'. Your conversation is displayed underneath, and you can see the requests/responses of JSON between yourself and your skill.
+* **Manual JSON** is for inputting JSON manually; for example, if you had the JSON prepared and wanted to jump to a specific part of your skill to check the response
+* **Voice & Tone** - Type a word into the box, and click the "Listen" button to hear how Alexa will
+pronounce it. To make changes to her pronunciation, use Speech Synthesis Markup Language [(SSML)](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speech-synthesis-markup-language-ssml-reference) to modify how Alexa will interpret text to speech.
 
-    ```html
-    <say-as interpret-as="ordinal">12345</say-as>
-    ```
-
-    ```html
-    <say-as interpret-as="digits">12345</say-as>
-    ```
-
-    <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/4-3-voice-simulator._TTH_.png" />
-
-    Return to the Voice Simulator as needed to ensure that Alexa says words and phrases as you would expect.
-
-4.  **Test your skill with the Service Simulator.** To validate that your skill is working as expected, use the Service Simulator.  In the **Enter Utterance** text box, type "open reindeer trivia"
+4.  **Test your skill with the Service Simulator.** To validate that your skill is working as expected, use the Service Simulator.  In the **Enter Utterance** text box, type "open berry bash" (or whatever your invocation name is)
 
     <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/fact/4-4-service-simulator._TTH_.png" />  <!-- YOU NEED TO MAKE YOUR OWN VERSION OF THIS IMAGE.  -->
 
