@@ -2,7 +2,7 @@
 
 const Alexa = require('alexa-sdk');
 
-/////////1. Static strings//////////////////////////////////////////////////////////////////////////
+/////////1. Static strings///////////////////////////////////Modify the hard coded data below to make this skill your own!
 //Skill data
 var skillName = 'Berry Bash';
 var skillQuizName = 'Berry Buzz';
@@ -58,7 +58,7 @@ var topicData = {
 // Info sourced from fruitsinfo.com
 // Royalty free images sourced from pexels/pixabay. See bottom of codes for links
  
-//generic strings, images
+//generic strings, images, etc. You can change some of the data below, but to make this skill your own, focus on the data above
 var adjectives = ['craziest', 'hippest', 'tastiest', 'sweetest', 'greatest', 'cheekiest', 'spiciest', 'greatest', 'smartest', 'best'];
 
 var positiveSpeechconArray = ['bang', 'boing', 'kaboom', 'mazel tov', 'oh snap', 'well done'];
