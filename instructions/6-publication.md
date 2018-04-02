@@ -5,13 +5,29 @@
 
 We are almost done!  The last step is to add the metadata that your skill will use in the [Alexa app](http://amazon.com/skills).  This page will walk you through the remaining steps, and give you some tips on how to avoid the common mistakes developers make that result in a failed certification.
 
-1.  **Go to your skill's Publishing Information tab on the [Amazon Developer Portal](https://developer.amazon.com/edw/home.html#/skills/list).**
+1.  **Go to your skill's 'Launch' tab on the [Amazon Developer Portal](https://developer.amazon.com/edw/home.html#/skills/list).**
 
-    <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/quiz-game/6-1-publishing-information._TTH_.png" />
+    <img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/launch.PNG" />
 
-2.  **Complete the Global Fields data.**  These fields apply across all of the languages that your skill supports.
+2.  **Modify language specific information.**
 
-    <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/quiz-game/6-2-global-fields._TTH_.png" />
+* Public Name - The name of your skill showin in the Alexa App
+* One Sentence Description
+* Detailed Description
+* Example Phrases - come up with the three most exciting ways a user can talk to your skill.
+
+*  **Make sure that each of your example phrases are a perfect match with one of your Sample Utterances.**  Incorrect example phrases are one of the most common reasons that skills fail certification, so we have provided a short list of things to consider as you write your example phrases:
+
+       | Common Failure Points for Example Phrases |
+       | ----------------------------------------- |
+       | Example phrases **must** adhere to the [supported phrases](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/supported-phrases-to-begin-a-conversation). |
+       | Example phrases **must** be based on sample utterances specified in your Intent Schema. |
+       | Your first example phrase **must** include a wake word and your invocation name. |
+       | Example phrases **must** provide a contextual response. |
+
+    *  **Choose three example phrases that are likely to be the most common ways that users will attempt to interact with your skill.**  Make sure that each of them works well, and provides an excellent user experience.
+
+
 
     *  **For Category, we are building a reference guide, so select "Education & Reference".**  You will need to select a **Sub-Category** option.
 
