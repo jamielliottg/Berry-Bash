@@ -52,17 +52,13 @@ You should see a bunch of built-in intent types added to your interaction model.
 
 Select **JSON Editor** to the left and you should be presented with an input box.
 
-    <img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/jsonE.PNG" />
+<img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/jsonE.PNG" />
 
-In the textfield provided, replace the existing code with the code provided in the [Interaction Model](../InteractionModel.json), then click "Apply Changes" or "Save Model".  
-    
-8.  Click on the "Code Editor" item under **Dashboard** on the top left side of the skill builder.
+In the textfield provided, replace the existing code with the code provided in the [Interaction Model](../InteractionModel.json), then click "Save Model" & "Build Model".  
 
-9.  In the textfield provided, replace any existing code with the code provided in the [Interaction Model](../InteractionModel.json), then click "Apply Changes" or "Save Model".  
+9. Add some more sample utterances for your newly generated intents if you like (selectable on the left).  These are the things a user would say to make a specific intent happen. 
 
-10. Click on the "Dashboard" button.
-
-11. Add some more sample utterances for your newly generated intents if you like.  These are the things a user would say to make a specific intent happen. 
+<img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/utterances.PNG" />
 
 12. Click on the **Save Model** button, and then click on the **Build Model** button.
 
