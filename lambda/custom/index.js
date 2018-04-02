@@ -473,19 +473,36 @@ function generateRandResponse(pArray, pSpeechCon)
         return pArray[r];
 }
 
+function bodyTemplateTypePicker(pNum)
+{
+    var val;
+	
+    switch(pNum) {
+    case 1:
+        val = new Alexa.templateBuilders.BodyTemplate1Builder();
+        break;
+    case 2:
+        val = new Alexa.templateBuilders.BodyTemplate2Builder();
+        break;
+    case 3:
+        val = new Alexa.templateBuilders.BodyTemplate3Builder();
+        break; 
+    case 6:
+        val = new Alexa.templateBuilders.BodyTemplate6Builder();
+        break;
+    case 7:
+        val = new Alexa.templateBuilders.BodyTemplate7Builder();
+        break;
+    default:
+        val = null;
+    
+    return val;
+}
+
 //Template makers
 function bodyTemplateMaker(pBodyTemplateType, pImg, pTitle, pText1, pText2, pOutputSpeech, pReprompt, pHint, pBackgroundIMG)
 {
-    var bodyTemplate;
-    
-    if (pBodyTemplateType == 7)
-        bodyTemplate = new Alexa.templateBuilders.BodyTemplate7Builder();
-    
-    if (pBodyTemplateType == 3)
-        bodyTemplate = new Alexa.templateBuilders.BodyTemplate3Builder();
-        
-    if (pBodyTemplateType == 2)
-        bodyTemplate = new Alexa.templateBuilders.BodyTemplate2Builder();
+    var bodyTemplate = bodyTemplateTypePicker.call(this, pBodyTemplateType);
     
     let template = bodyTemplate.setTitle(pTitle)
                           .build();
@@ -512,16 +529,28 @@ function bodyTemplateMaker(pBodyTemplateType, pImg, pTitle, pText1, pText2, pOut
     
     this.emit(':responseReady');
 }
+	
+function listTemplateMaker(pNum)
+{
+    var val;
+	
+    switch(pNum) {
+    case 1:
+        val = new Alexa.templateBuilders.ListTemplate1Builder();
+        break;
+    case 2:
+        val = new Alexa.templateBuilders.ListTemplate2Builder();
+        break;
+    default:
+        val = null;
+    
+    return val;
+}
 
 function listTemplateMaker(pArray, pType, pTitle, pOutputSpeech, pQuiz, pBackgroundIMG)
 {
     const listItemBuilder = new Alexa.templateBuilders.ListItemBuilder();
-    var listTemplateBuilder;
-    
-    if (pType == 1)
-        listTemplateBuilder = new Alexa.templateBuilders.ListTemplate1Builder();
-    else if (pType == 2)
-        listTemplateBuilder = new Alexa.templateBuilders.ListTemplate2Builder();
+    var listTemplateBuilder = listTemplateMaker(pType);
 
     if (!pQuiz)
     {
