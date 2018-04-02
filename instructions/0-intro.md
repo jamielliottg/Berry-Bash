@@ -8,6 +8,7 @@
 *  [Alexa Skills Kit (ASK)](https://developer.amazon.com/alexa-skills-kit)
 *  Voice User Interface (VUI) Design
 *  Skill Certification
+*  Multi Modal Design
 *  State Management
 * [Speechcons](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speechcon-reference)
 
