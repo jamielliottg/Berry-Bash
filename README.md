@@ -116,7 +116,7 @@ ASK CLI will create the skill and the lambda function for you. The Lambda functi
 
 2. ```./lambda/custom/index.js```
 
-   Modify messages, and facts from the source code to customize the skill.
+   Modify messages, and facts from the source code to customize the skill. Check out the [Customise](https://github.com/jamielliottg/Berry-Bash/blob/master/instructions/5-customization.md) section for more info.
 
 3. ```./models/*.json```
 
