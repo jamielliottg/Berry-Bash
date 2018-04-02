@@ -13,7 +13,7 @@ At this point, you should have a working copy of our Berry Bash skill. In order 
     
     <img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/topicData.PNG"/>
     
-    3.  **Add the new values to your interaction model**  You'll notice that we have a custom slot type consisting of our berry names. If you take these out in the code as mentioned above and place in your own data names, you should also replace these in the custom slot to ensuer Alexa understands what the user is after. Alternatively, you can use a built-in slot type.
+    3.  **Add the new values to your interaction model**  You'll notice that we have a custom slot type consisting of our berry names. If you take these out in the code as mentioned above and place in your own data names, you should also replace these in the custom slot to ensuer Alexa understands what the user is after. Alternatively, you can use a built-in slot type. **And don't forget to rebuild!**
     
     4.  **Experiment with render template types**  The code at the moment uses a few types of body templates and list templates, but you can see that we have quite the selection available over [here](https://developer.amazon.com/docs/custom-skills/display-interface-reference.html). If you search for the functions 'bodyTemplateMaker' and 'listTemplateMaker', you can see where these functions are called in the code and make adjustments as needed. These functions are custom make to help render these templates.
 
@@ -37,63 +37,6 @@ At this point, you should have a working copy of our Berry Bash skill. In order 
 
     *  For example, if you are creating your skill in German, every single response that Alexa makes has to be in German.  You can't use English responses or your skill will fail certification.
 
-3.  **Once you have made the updates listed above, you can move on to some of the optional customization below.**
-
-## Add a New Intent with Slots
-
-1.  **Choosing Slot Types**
-
-Continuing with Berry Bash, let’s add a feature by adding a new intent, such as a new type of intent that we want our skill to handle. This can be whatever you want; you can do this by following below:
-
-1. Go to developer.amazon, click Interaction Model on the left to enter the skill builder.
-
-1. Click "Add New Intent".
-
-1. Name it whatever you want (usually SOMETHINGIntent) and click Create Intent.
-
-1. Click utterances and type things your users may say to his this intent
-
-1. You can Double-click the a word to create a new intent slot on the right.
-
-1. Click choose a slot type, you can use the search to pick from Amazon's internal ones.
-
-1. Click Save & then click Build Skill.
-
-1. Click test.
-
-1. Type a similar utterance for this intent into the Service Simulator > Enter Utterance field and then hit enter.
-
-1. When you see the Lambda Request box fill with code, select everything in that box and copy it.
-
-1. In your aws.amazon window: click ‘Actions’ button, then select "Configure Test Event".
-
-1. Paste the code that you just copied into the field that comes up, then scroll down and click "Save and Test".
-
-1. This test should fail, but we expect it to so it's ok.  
-
-1. Go back to your Lambda function and find your handlers. Copy an entire handler and paste it in. You should now have something like this:
-
-``` 'DIFFERENTIntent': function () {
-
-    }, 
-    'SOMETHINGIntent': function () {
-
-    },
-```
-
-1. Change the name of your new intent to the intent name you just made.
-
-1. Add code for how you'd like your skill to response if this intent was hit by a user
-
-1. Save, then test again, then go to the developer portal.
-
-1. Now when you test your utterance in the skill builder, you should get and be able to hear a response.
-
-### Extra Credit
-
-What about custom slot types? The Alexa [Quiz Game](https://github.com/alexa/skill-sample-nodejs-quiz-game) Skill uses a custom slot, named US_STATE_ABBR.  Try creating a custom slot for your own skill.
-
-<br/><br/>
 <a href="./6-publication.md"><img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/buttons/button_next_publication._TTH_.png" /></a>
 
 <img height="1" width="1" src="https://www.facebook.com/tr?id=1847448698846169&ev=PageView&noscript=1"/>
