@@ -169,7 +169,7 @@ const handlers = {
             reprompt = 'What would you like to do?';
 
             this.response.speak(speechOutput).listen(reprompt);
-
+            this.attributes['skillState'] = null;
             this.attributes['lastOutputResponse'] = speechOutput;
 
             this.emit(':responseReady');
