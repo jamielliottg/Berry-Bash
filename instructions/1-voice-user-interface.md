@@ -21,18 +21,13 @@ There are two parts to an Alexa skill.  The first part is the [Voice User Interf
 
     <img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/skill_name.PNG" />
    
-5.  **Select Cusom Skill**
+5.  **For skill type, select Custom Skill**
 
     <img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/custom_skill.PNG" />
 
-    ### Skill Information Tips
-    1.  **Skill Type** For this skill, we are creating a skill using the Custom Interaction Model.  This is the default choice.
+6.  **Set an invocation name for our skill**
 
-    2.  **Language** Choose the first language you want to support.  You can add additional languages in the future, but we need to start with one.  (This guide is using U.S. English to start.)
-
-    3.  **Name** This is the name that will be shown in the Alexa Skills Store, and the name your users will refer to.
-
-    4.  **Invocation Name** This is the name that your users will need to say to start your skill.  We have provided some common issues developers encounter in the list below, but you should also review the entire [Invocation Name Requirements](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/choosing-the-invocation-name-for-an-alexa-skill).
+This is the name that your users will need to say to start your skill.  We have provided some common issues developers encounter in the list below, but you should also review the entire [Invocation Name Requirements](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/choosing-the-invocation-name-for-an-alexa-skill).
 
         | Invocation Name Requirements | Examples of incorrect invocation names |
         | ---------------------------- | -------------------------------------- |
@@ -42,17 +37,25 @@ There are two parts to an Alexa skill.  The first part is the [Voice User Interf
         | The invocation name must not contain any of the Alexa skill launch phrases and connecting words.  Launch phrase examples include "launch," "ask," "tell," "load," and "begin."  Connecting word examples include "to," "from," "by," "if," "and," "whether." | trivia game for star wars; better with bacon |
         | The invocation name must not contain the wake words "Alexa," "Amazon," "Echo," or the words "skill" or "app." | hackster initial skill; word skills |
         | The invocation name must be written in each language you choose to support.  For example, the German version of your skill must have an invocation name written in German, while the English (US) version must have an invocation name written in English. | kitchen stories (German skill) |
+        
+When you have one, select invocation name on the left menu, and input your invocation name in the provided box.
 
-    5.  **Audio Player** For this Fact skill, we won't be using any audio files, so you can select No for this option.  If you would like to learn more about adding audio to your skills, please check out our [Audio Player Guide](https://github.com/alexa/skill-sample-nodejs-audio-player).
+<img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/invoca.PNG" />
 
-6.  **Click the Next button to move to the Interaction Model.**
+7.  **Enable the Render Template directive for your skill**
 
-    <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/1-6-next-button._TTH_.png" />
+    <img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/displayin.png" />
 
-7.  Click on the **Launch Skill Builder** (Beta) button . This will launch the new Skill Builder Dashboard.
+You should see a bunch of built-in intent types added to your interaction model. This is normal!
 
-    ![Launch Skill Builder](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/1-7-skill-builder-launch._TTH_.png)
+8.  **Copy the interaction model from this template into your skill**.
 
+Select **JSON Editor** to the left and you should be presented with an input box.
+
+    <img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/jsonE.PNG" />
+
+In the textfield provided, replace the existing code with the code provided in the [Interaction Model](../InteractionModel.json), then click "Apply Changes" or "Save Model".  
+    
 8.  Click on the "Code Editor" item under **Dashboard** on the top left side of the skill builder.
 
 9.  In the textfield provided, replace any existing code with the code provided in the [Interaction Model](../InteractionModel.json), then click "Apply Changes" or "Save Model".  
