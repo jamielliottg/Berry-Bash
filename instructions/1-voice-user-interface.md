@@ -60,19 +60,12 @@ In the textfield provided, replace the existing code with the code provided in t
 
 <img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/utterances.PNG" />
 
-12. Click on the **Save Model** button, and then click on the **Build Model** button.
+Don't forget to select **Save Model** if you add any new ones.
 
-    ![](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/1-12-skill-builder-build-save-model._TTH_.png)
+10. Double check you've got everything by clicking on the **Save Model** button, and then click on the **Build Model** button.
 
-
-13.  If your interaction model builds successfully, click on **Configuration button** to move on to Configuration. In our next step of this guide, we will be creating our Lambda function in the AWS developer console, but keep this browser tab open, because we will be returning here on [Page #3: Connect VUI to Code](https://github.com/voicehacks/setup-local-recommendations/blob/master/step-by-step/3-connect-vui-to-code.md).
-     ![](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/1-13-skill-builder-configuration.png)
-
-     If you get an error from your interaction model, check through this list:
-
-     *  **Did you copy & paste the provided code into the appropriate boxes?**
-     *  **Did you accidentally add any characters to the Interaction Model or Sample Utterances?**
-
+<img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/build_save.PNG" />
+   
 <br/><br/>
 [![Next: Lambda Function](https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/buttons/button_next_lambda_function._TTH_.png)](./2-lambda-function.md)
 
