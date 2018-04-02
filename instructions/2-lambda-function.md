@@ -40,24 +40,24 @@ In the [first step of this guide](./1-voice-user-interface.md), we built the Voi
 
 <img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/awsTRIG.PNG" />
 
-10. Once you have selected Alexa Skills Kit, scroll down. Under Configure triggers, select Disable for Skill ID verification (this stops other skills from hitting your lambda function, but we don't need to worry about this for now). Click Add (bottom right), then click Save (top right).
+10. Once you have selected Alexa Skills Kit, scroll down. Under Configure triggers, select Enable for Skill ID verification.
 
-12. Now lets secure this lambda function, so that it can only be invoked by your skill. Open up the [developer portal](https://developer.amazon.com/edw/home.html#/skills) and select your skill from the list. You mays till have a browser tab open if you started at the beginning of this tutorial.
+11. Now lets secure this lambda function, so that it can only be invoked by your skill. Open up the [developer portal](https://developer.amazon.com/alexa/console/ask#/skills) and find your skill from the list. From here, you can copy the skill ID from underneath your skill name.
 
-13. Click the Skill Information Link.
+<img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/skillIDout.PNG" />
 
-    <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/3-2-configuration-tab._TTH_.png" />
+Alternatively, if you're in the skill already, you can select **Endpoint**, **AWS Lambda**, and copy your skill ID from over there.
 
-14. Copy the **Application ID** provided in the main window. This is also known as a skill ID, and is unique to your skill.
+<img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/skillIDIN.PNG" />
 
-15. Return back to your lambda function in the. You may already have this browser tab open from **Step 11**. Otherwise, open the lambda console by clicking here: [AWS Console](https://console.aws.amazon.com/lambda/home?region=us-east-1#/functions) and selecting the appropriate function. Scroll down to **Configure triggers**, paste the Skill ID in the Skill ID edit box.
+12. Return back to your lambda function. Scroll down to **Configure triggers**, paste the Skill ID in the Skill ID edit box.
 
-16. Click the **Add** button. Then click the **Save** button in the top right. You should see a green success message at the top of your screen. Now, click the box that has the Lambda icon followed by the name of your function and scroll down to the field called "Function code".
+13. Click the **Add** button. Then click the **Save** button in the top right. You should see a green success message at the top of your screen. Now, click the box that has the Lambda icon followed by the name of your function and scroll down to the field called "Function code".
 
-17.  **Copy and paste the [provided code](../lambda/custom/index.js) into the Lambda function code box.**  Delete the contents of the code box, and paste the contents of the new code.
+14.  **Copy and paste the [provided code](../lambda/custom/index.js) into the Lambda function code box.**  Delete the contents of the code box, and paste the contents of the new code.
 Click "Save".
 
-18. **Scroll to the top of the page. The ARN value for this Lambda function should be in the top right corner. Copy this value for use in the next section of the guide.**
+15. **Scroll to the top of the page. The ARN value for this Lambda function should be in the top right corner. Copy this value for use in the next section of the guide.**
 
     <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/quiz-game/2-12-copy-ARN._TTH_.png" />  <!--TODO: THIS IMAGE NEEDS TO BE CUSTOMIZED FOR YOUR SKILL TEMPLATE. -->
 
