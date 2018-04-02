@@ -9,9 +9,6 @@
             "custom": {
               "endpoint": {
                 "uri": "ask-custom-berrybash-default"
-              },
-              "interfaces": {
-                "type": RENDER_TEMPLATE
               }
             }
           }
