@@ -15,7 +15,7 @@ var skillDictionaryName = 'Berry Book';
 var categoryPlural = 'berries';
 var categorySingular = 'berry';
 
-var mainImage = 'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/background-berries-berry-blackberries-87818+(1).jpeg';
+var mainImage = 'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/background-berries-berry-blackberries-87818%2B(1).jpeg';
 var mainImgBlurBG = 'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/main_blur2.png';
 
 var topicData = {
