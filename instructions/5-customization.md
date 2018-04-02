@@ -29,12 +29,7 @@ At this point, you should have a working copy of our Berry Bash skill. In order 
         | [AMAZON.Sport](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference#sport) | Names of sports | basketball, college football, football, gymnastics, team handball | US |
         | [AMAZON.VideoGame](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference#videogame) | Titles of video games | Doom Two, Lemmings, The Sims, Worms | US |
 
-    4.  **Once you have your data, here are a couple of tips to remember as we move forward:**
-
-        *  **If you change values in the code, make sure that they are changed in the interaction model too under our custom slot types.** 
-        *  **If you can't think of any new fruit, just look them up.** We're going to be publishing this skill, so we need to make sure that our users are getting accurate data.
-
-    5.  **When you have replaced the data in index.js, copy the contents of your file to your Lambda function.**  This should be as simple as copying the text, and pasting it into the code box for your Lambda.
+    4.  **When you have replaced the data in index.js, copy the contents of your file to your Lambda function.**  This should be as simple as copying the text, and pasting it into the code box for your Lambda.
 
         <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/quiz-game/5-1-5-lambda-code-box._TTH_.png" />
 
