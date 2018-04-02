@@ -13,10 +13,11 @@ At this point, you should have a working copy of our Berry Bash skill. In order 
     
     <img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/topicData.PNG"/>
     
+    3.  **Add the new values to your interaction model**  You'll notice that we have a custom slot type consisting of our berry names. If you take these out in the code as mentioned above and place in your own data names, you should also replace these in the custom slot to ensuer Alexa understands what the user is after. Alternatively, you can use a built-in slot type.
     
-    3.  **Experiment with render template types**  The code at the moment uses a few types of body templates and list templates, but you can see that we have quite the selection available over [here](https://developer.amazon.com/docs/custom-skills/display-interface-reference.html). 
+    4.  **Experiment with render template types**  The code at the moment uses a few types of body templates and list templates, but you can see that we have quite the selection available over [here](https://developer.amazon.com/docs/custom-skills/display-interface-reference.html). If you search for the functions 'bodyTemplateMaker' and 'listTemplateMaker', you can see where these functions are called in the code and make adjustments as needed. These functions are custom make to help render these templates.
 
-    4.  **Consider using built-in slot values.** We recommend considering data from the built-in slot values provided by Amazon.  You still need to build your entire dataset, but using values from the built-in slots will make your work in the next few steps easier.  We have provided a few examples below, but you can see the [entire list of built-in slot values here](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference#list-types).
+    5.  **Consider using built-in slot values.** As mentioned above, we recommend considering data from the built-in slot values provided by Amazon.  You still need to build your entire dataset, but using values from the built-in slots will make your work in the next few steps easier.  We have provided a few examples below, but you can see the [entire list of built-in slot values here](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference#list-types).
 
         | Slot Name | Description | Sample Values | Supported Languages |
         | --------- | ----------- | ------------- | ------------------- |
