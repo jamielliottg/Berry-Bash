@@ -12,7 +12,11 @@ So far, we have [created a Voice User Interface](./1-voice-user-interface.md) an
 
     <img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/test.png" />
 
-3.  **Understand the voice simulator.** While it's not specific to your skill, the Voice Simulator is a valuable testing tool for every skill. Type a word into the box, and click the "Listen" button to hear how Alexa will
+3.  **Understand the voice simulator.** 
+
+<img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/test2.PNG" />
+
+While it's not specific to your skill, the Voice Simulator is a valuable testing tool for every skill. Type a word into the box, and click the "Listen" button to hear how Alexa will
 pronounce it. To make changes to her pronunciation, use Speech Synthesis Markup Language [(SSML)](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speech-synthesis-markup-language-ssml-reference) to modify how Alexa will interpret text to speech. Try these examples:
 
     ```html
