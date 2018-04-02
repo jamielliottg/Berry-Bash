@@ -5,9 +5,9 @@
 
 In the [first step of this guide](./1-voice-user-interface.md), we built the Voice User Interface (VUI) for our Alexa skill.  On this page, we will be creating an AWS Lambda function using [Amazon Web Services](http://aws.amazon.com).  You can [read more about what a Lambda function is](http://aws.amazon.com/lambda), but for the purposes of this guide, what you need to know is that AWS Lambda is where our code lives.  When a user asks Alexa to use our skill, it is our AWS Lambda function that interprets the appropriate interaction, and provides the conversation back to the user.
 
-1.  **Go to http://aws.amazon.com and sign in to the console.** If you don't already have an account, you will need to create one.  [If you don't have an AWS account, check out this quick walkthrough for setting it up](https://github.com/alexa/alexa-cookbook/tree/master/aws/set-up-aws.md).
+1.  **Go to http://aws.amazon.com and sign in to the console with the AWS Management Console.** If you don't already have an account, you will need to create one.  [If you don't have an AWS account, check out this quick walkthrough for setting it up](https://github.com/alexa/alexa-cookbook/tree/master/aws/set-up-aws.md).
 
-    <a href="https://console.aws.amazon.com/console/home" target="_new"><img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/2-1-sign-in-to-the-console._TTH_.png" /></a>
+    <a href="https://console.aws.amazon.com/console/home" target="_new"><img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/AWS.png" /></a>
 
 2.  **Click "Services" at the top of the screen, and type "Lambda" in the search box.**  You can also find Lambda in the list of services.  It is in the "Compute" section.
 
@@ -23,8 +23,6 @@ In the [first step of this guide](./1-voice-user-interface.md), we built the Voi
 
 5.  **There are two boxes labeled "Author from scratch" and "Blueprints". Click the radio button in the box titled "Blueprints" then choose the blueprint named "alexa-skill-kit-sdk-factskill".** We have created a blueprint as a shortcut to getting everything set up for your skill. You can search for a blueprint using the provided search box.  This blueprint adds the alexa-sdk to your Lambda function so that you don't have to upload it yourself.
 
-    <!-- <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/fact/2-5-blueprint._TTH_.png" />  <!--TODO: THIS IMAGE NEEDS TO BE CUSTOMIZED FOR YOUR SKILL TEMPLATE, THIS ONE IS OUT OF DATE. -->
-
 6.  **Configure your function.** This screen is where we will enter the important parts of our Lambda function.  These values will only ever be visible to you, but make sure that you name your function something meaningful.
 
   <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/2-7-configure-your-function._TTH_.png" />
@@ -33,18 +31,16 @@ In the [first step of this guide](./1-voice-user-interface.md), we built the Voi
 
     <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/2-9-lambda-function-role._TTH_.png" />
 
-8. **Click Create Function in the bottom right corner.**  You will need to scroll down to find **Create Function.**
+8. **Click Create Function.** 
 
     <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/2-11-create-function-button._TTH_.png" />
 
 
 9. **Configure your trigger.** Look at the column on the left called "Add triggers", and select Alexa Skills Kit from the list.  If you don't see Alexa Skills Kit in the list, jump back to step #3 on this page.
 
-    <!-- <img src="https://m.media-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/general/2-6-configure-your-trigger._TTH_.png" /> TODO: THIS SCREENSHOT IS OUT OF DATE-->
+<img src="https://s3.eu-west-2.amazonaws.com/jgsound/cookbookimages/awsTRIG.PNG" />
 
-10. Once you have selected Alexa Skills Kit, scroll down. Under Configure triggers, select Enable for Skill ID verification. A skill ID Edit box should appear. We will now retrieve your Skill ID from the developer portal.
-
-11. **We now need to update the function to use the latest Node JS SDK from the main Alexa Github [here](https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs) (unfortunately; the one in our blueprint is out of date at the time of writing this). Select 'Clone or download', and then 'Download Zip'. Unzip that folder. Back in the lambda function, select 'Actions', 'Export Function', and then 'Download deployment package'. You now have your function downloaded and the new SDK. Once both are unzipped, you want to go into the SDK folder, into 'alexa-skills-kit-sdk-for-nodejs-master', and copy everything there into your your_project_folder/node_modules\alexa-sdk (replacing everything there). Thats it! Once done, zip up everything in the root of your project folder (ensuring index.js is here - this is your root), and upload it back to your lambda function by changing 'Code entry type' to 'Upload a zip'. Once you select your newly zipped up project, hit save, and your project should now be updated to use the latest SDK + you can edit it right in your browser! Cool right?**
+10. Once you have selected Alexa Skills Kit, scroll down. Under Configure triggers, select Disable for Skill ID verification (this stops other skills from hitting your lambda function, but we don't need to worry about this for now). Click Add (bottom right), then click Save (top right).
 
 12. Now lets secure this lambda function, so that it can only be invoked by your skill. Open up the [developer portal](https://developer.amazon.com/edw/home.html#/skills) and select your skill from the list. You mays till have a browser tab open if you started at the beginning of this tutorial.
 
