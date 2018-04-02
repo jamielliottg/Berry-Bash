@@ -2,7 +2,7 @@
   "languageModel": {
     "types": [
       {
-        "name": "categoryValues",
+        "name": "categoryList",
         "values": [
           {
             "id": null,
@@ -145,23 +145,23 @@
       {
         "name": "ElementSelected",
         "samples": [
-          "i choose {fruitValue}",
-          "tell me about {fruitValue}",
-          "show me {fruitValue}",
-          "select {fruitValue}",
+          "i choose {categoryValue}",
+          "tell me about {categoryValue}",
+          "show me {categoryValue}",
+          "select {categoryValue}",
           "select {numberValue}",
           "show me {numberValue}",
           "tell me about {numberValue}",
           "i choose {numberValue}",
-          "{fruitValue}",
+          "{categoryValue}",
           "{numberValue}",
           "number {numberValue}",
-          "choose {fruitValue}"
+          "choose {categoryValue}"
         ],
         "slots": [
           {
-            "name": "fruitValue",
-            "type": "categoryValues"
+            "name": "categoryValue",
+            "type": "categoryList"
           },
           {
             "name": "numberValue",
