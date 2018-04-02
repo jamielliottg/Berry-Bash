@@ -355,11 +355,11 @@ const handlers = {
 
                     showSpecificItemInfo.call(this, result, objectArray);
                 }
-            } else if (this.event.request.intent.slots.fruitValue.value) //If the user chooses their selection via voice
+            } else if (this.event.request.intent.slots.categoryValue.value) //If the user chooses their selection via voice
             {
                 resetAttributes.call(this);
 
-                var userFruit = this.event.request.intent.slots.fruitValue.value;
+                var userFruit = this.event.request.intent.slots.categoryValue.value;
 
                 var iresult = matchChecker(objectArray, userFruit);
 
