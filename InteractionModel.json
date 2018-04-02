@@ -2,7 +2,7 @@
   "languageModel": {
     "types": [
       {
-        "name": "berryTypes",
+        "name": "categoryValues",
         "values": [
           {
             "id": null,
@@ -161,7 +161,7 @@
         "slots": [
           {
             "name": "fruitValue",
-            "type": "berryTypes"
+            "type": "categoryValues"
           },
           {
             "name": "numberValue",
