@@ -11,7 +11,7 @@ var categoryPlural = 'berries';
 var categorySingular = 'berry';
 
 var mainImage = 'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/background-berries-berry-blackberries-87818+(1).jpeg';
-var mainImgBlurBG = 'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/main_blur+(1).png';
+var mainImgBlurBG = 'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/blur_main.fw.png';
 
 var topicData = {
     "raspberries": {
@@ -92,34 +92,8 @@ const handlers = {
         newSessionHandler.call(this);
         
         var speechOutput = 'Welcome to ' + skillName + ', the ' + adjectives[getRandomVal(0, adjectives.length - 1)] + ' stop for knowledge about ' + categoryPlural + ' around. ';
-        var reprompt;
 
-		resetAttributes.call(this);
-
-		var cardTitle = skillName;
-
-		var actionText1 = '<action value="dictionary_token"><i>' + skillDictionaryName + '</i></action>'; //Selectable text
-		var actionText2 = '<action value="quiz_token"><i>' + skillQuizName + '</i></action>';
-
-		speechOutput += 'Simply ask me to provide information about ' + categoryPlural + ' from the ' + skillDictionaryName + '.'; 
-
-		if (supportsDisplay.call(this) && !testingOnSim)
-		{
-			speechOutput += ' However, if you are feeling lucky, ask for a quick game of ' + skillQuizName + '.';
-			var text = '<u><font size="7">' + skillName + '</font></u><br/><br/>Simply ask me to provide information about ' + categoryPlural + ' from the ' + actionText1 + '. However, if you are feeling lucky, ask for a quick game of ' + actionText2 + '.'; 
-			bodyTemplateMaker.call(this, 3, mainImage, cardTitle, null, text, speechOutput, null); 
-		}
-		else
-		{
-			reprompt = 'What would you like to do?';
-			speechOutput = speechOutput + ' ' + reprompt;
-
-			this.response.speak(speechOutput).listen(reprompt);
-
-			this.attributes['lastOutputResponse'] = speechOutput;
-
-			this.emit(':responseReady');
-		}
+		showSkillIntro.call(this, speechOutput);
     },
     'InformationIntent': function () {
         newSessionHandler.call(this);
@@ -187,7 +161,7 @@ const handlers = {
     	var reprompt;
 
         if (this.attributes['skillState'] == 'gamePlaying') //User wants to stop playing game
-            showHome.call(this, null);
+            showSkillIntro.call(this, null);
         else if (this.attributes['skillState'] == 'quitting') //User decided to stay in skill after nearly quitting
         {
         	speechOutput = 'Good choice. Now, what would you like to do?';
@@ -220,7 +194,7 @@ const handlers = {
 		    this.emit(':responseReady');
         }
         else
-            showHome.call(this, null);
+            showSkillIntro.call(this, null);
     },
     'QuizIntent': function () {
         newSessionHandler.call(this);
@@ -318,7 +292,7 @@ const handlers = {
 		    this.emit(':responseReady');
         }
         else
-            showHome.call(this, null);
+            showSkillIntro.call(this, null);
     },
     'ElementSelected': function () {//To handle events when the screen is touched
         newSessionHandler.call(this);
@@ -791,6 +765,36 @@ function endSkill()
     this.response.speak(speechOutput);
     this.emit(':responseReady');
 }
+
+function showSkillIntro(pSpeechOutput) 
+ {
+     resetAttributes.call(this);
+     
+     var speechOutput = pSpeechOutput || '';
+     var reprompt;
+     var cardTitle = skillName;
+     
+     var actionText1 = '<action value="dictionary_token"><i>' + skillDictionaryName + '</i></action>'; //Selectable text
+	 var actionText2 = '<action value="quiz_token"><i>' + skillQuizName + '</i></action>';
+     
+     speechOutput += 'Simply ask me to provide information about ' + categoryPlural + ' from the ' + skillDictionaryName + '.'; 
+
+     if (supportsDisplay.call(this) && !testingOnSim)
+     {
+        speechOutput += ' However, if you are feeling lucky, ask for a quick game of ' + skillQuizName + '.';
+		var text = '<u><font size="7">' + skillName + '</font></u><br/><br/>Simply ask me to provide information about ' + categoryPlural + ' from the ' + actionText1 + '. However, if you are feeling lucky, ask for a quick game of ' + actionText2 + '.'; 
+		bodyTemplateMaker.call(this, 3, mainImage, cardTitle, null, text, speechOutput, null); 
+     }
+    else
+        reprompt = 'What would you like to do?';
+		speechOutput = speechOutput + ' ' + reprompt;
+
+		this.response.speak(speechOutput).listen(reprompt);
+
+		this.attributes['lastOutputResponse'] = speechOutput;
+
+		this.emit(':responseReady');
+ }
 
 /*
 Royalty free berry image URLS
