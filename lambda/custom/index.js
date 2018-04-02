@@ -2,18 +2,63 @@
 
 const Alexa = require('alexa-sdk');
 
-//////////Helper shorthands for multi modal compatability//////////////////////////////////////////////////////////////////////////
-const makePlainText = Alexa.utils.TextUtils.makePlainText;
-const makeImage = Alexa.utils.ImageUtils.makeImage;
-const makeRichText = Alexa.utils.TextUtils.makeRichText;
-
-/////////Code data (fruit info, random text, etc)//////////////////////////////////////////////////////////////////////////
+/////////1. Static strings//////////////////////////////////////////////////////////////////////////
+//Skill data
 var skillName = 'Berry Bash';
 var skillQuizName = 'Berry Buzz';
 var skillDictionaryName = 'Berry Book';
 var categoryPlural = 'berries';
 var categorySingular = 'berry';
 
+var mainImage = 'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/background-berries-berry-blackberries-87818+(1).jpeg';
+var mainImgBlurBG = 'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/main_blur+(1).png';
+
+var topicData = {
+    "raspberries": {
+        "imgURL": "https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/raspberry-fruits-fresh-red-52536.jpeg",
+        "info": "The Raspberry or Red Raspberry is the plant that produces a tart, sweet, red composite fruit in the late summer and early autumn. In proper botanical language, it is not a berry at all, but instead an aggregate fruit of numerous drupelets around the central core."
+    },
+    "blackberries": {
+        "imgURL": "https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/pexels-photo-892808.jpeg",
+        "info": "The blackberry is an edible fruit produced by many species in the Rubus genus in the Rosaceae family, hybrids among these species within the Rubus subgenus, and hybrids between the Rubus and Idaeobatus subgenera."
+    },
+    "strawberries": {
+        "imgURL": "https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/pexels-photo-583840.jpeg",
+        "info": "Strawberries are short-lived herbaceous perennials, producing for 2 to 3 years. Plant in an open, sunny position in raised beds; a good airflow will reduce fungal diseases. Strawberries prefer a well-drained soil, rich in humus. Dig in lots of organic matter, compost, animal manure or blood and bone, about a month before planting."
+    },
+    "blueberries": {
+        "imgURL": "https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/summer-blueberries-stephanie-herington.jpg",
+        "info": "Blueberry is one of the highest antioxidant capacities among all fruits, vegetables, spices and seasonings. Antioxidants are necessary to optimizing fitness by helping to combat the free radicals that can damage cellular structures as well as DNA. Blueberries are small blue to black colored fruits with a green flesh. They should be rich and bright in color with a natural bloom."
+    },
+    "elderberries": {
+        "imgURL": "https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/elder-black-elderberry-sambucus-nigra-holder-51962.jpeg",
+        "info": "Elderberry also known as Sambucus is from the family of Adoxaceae, which is a genus of flowering plant. Formerly placed in the honeysuckle family, the fruits when ripe are blackish purple in color and globose in shape. With seeds just about 3mm long, they are globular in shape and about 4 mm diameter, calyx persistent at the apex."
+    },
+    "gooseberries": {
+        "imgURL": "https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/currant-immature-bush-berry-54332.jpeg",
+        "info": "Indian gooseberry fruits are of small size and light green in color. They have 6 vertical grooves on them. The taste of the fruit can be described as strong, harsh, and rough. This fruit is round shaped with vertical stripes and has a hard seed inside."
+    },
+    "cranberries": {
+        "imgURL": "https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/pexels-photo-306800.jpeg",
+        "info": "Cranberries are low, creeping shrubs or vines up to 2 metres long and 5 to 20 centimetres in height; they have slender, wiry stems that are not thickly woody and have small evergreen leaves. The flowers are dark pink, with very distinct reflexed petals, leaving the style and stamens fully exposed and pointing forward. They are pollinated by bees. The fruit is a berry that is larger than the leaves of the plant; it is initially light green, turning red when ripe. It is edible, but with an acidic taste that usually overwhelms its sweetness."
+    },
+    "huckleberries": {
+        "imgURL": "https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/pexels-photo-139749.jpeg",
+        "info": "Huckleberry otherwise called hurtleberry is the native fruit of North America. The fruit appear in various dark colors such as red, blue and black and each berry measures 5-10mm in diameter. The fruit is completely edible and possesses a unique sweet taste. These berries are used as a major flavoring agent in juice, tea, soup, pudding, pie, pancakes and jam. It is also used for treating pain and healing heart disease and infections."
+    },
+    "cherries": {
+        "imgURL": "https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/pexels-photo-175727.jpeg",
+        "info": "Cherries are found in the wild and have been domesticated for centuries. There is a myriad of cherry types, resulting from new varieties and hybrids developed for hardiness and flavor. This fruit is found in Asia, Europe, and North America, with Iran, Turkey, United States, Germany, and Italy leading in the production of cherries."
+    },
+    "gojiberries": {
+        "imgURL": "https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/goji-3162716_640.jpg",
+        "info": "Goji, goji berry, or wolfberry is the fruit of either the Lycium barbarum or Lycium chinense, two closely related species of boxthorn in the nightshade family, Solanaceae. The family also includes the potato, tomato, eggplant, belladonna, chili pepper, and tobacco. The two species are native to Asia."
+    }
+}
+// Info sourced from fruitsinfo.com
+// Royalty free images sourced from pexels/pixabay. See bottom of codes for links
+ 
+//generic strings, images
 var adjectives = ['craziest', 'hippest', 'tastiest', 'sweetest', 'greatest', 'cheekiest', 'spiciest', 'greatest', 'smartest', 'best'];
 
 var positiveSpeechconArray = ['bang', 'boing', 'kaboom', 'mazel tov', 'oh snap', 'well done'];
@@ -22,48 +67,26 @@ var negativeSpeechconArray = ['wah wah', 'uh oh', 'tosh', 'quack', 'oof', 'oh de
 var correctResponses = ['That is correct.', 'You got it!', 'Nice one.', 'There you go.', 'Awesome', 'Congratulations.'];
 var wrongResponses = ['Oh no.', 'That is wrong.', 'Incorrect.', 'Unlucky.', 'Maybe next time.', 'Nearly.'];
 
-var mainImage = 'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/background-berries-berry-blackberries-87818+(1).jpeg';
 var secondPlaceImage = 'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/medal-2163349_640.png';
 var firstPlaceImage = 'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/medal-2163347_640.png';
-
-var arrayNames = ['raspberries',
-    'blackberries',
-    'strawberries',
-    'blueberries',
-    'elderberries',
-    'gooseberries',
-    'cranberries',
-    'huckleberries',
-    'cherries',
-    'gojiberries'];
-    
-var arrayImages = ['https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/raspberry-fruits-fresh-red-52536.jpeg',
-'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/pexels-photo-892808.jpeg',
-'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/pexels-photo-583840.jpeg',
-'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/summer-blueberries-stephanie-herington.jpg',
-'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/elder-black-elderberry-sambucus-nigra-holder-51962.jpeg',
-'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/currant-immature-bush-berry-54332.jpeg',
-'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/pexels-photo-306800.jpeg',
-'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/pexels-photo-139749.jpeg',
-'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/pexels-photo-175727.jpeg',
-'https://s3.eu-west-2.amazonaws.com/jgsound/berryImages/goji-3162716_640.jpg'];
-
-var arrayInfo = ['The Raspberry or Red Raspberry is the plant that produces a tart, sweet, red composite fruit in the late summer and early autumn. In proper botanical language, it is not a berry at all, but instead an aggregate fruit of numerous drupelets around the central core.',
-'The blackberry is an edible fruit produced by many species in the Rubus genus in the Rosaceae family, hybrids among these species within the Rubus subgenus, and hybrids between the Rubus and Idaeobatus subgenera.',
-'Strawberries are short-lived herbaceous perennials, producing for 2 to 3 years. Plant in an open, sunny position in raised beds; a good airflow will reduce fungal diseases. Strawberries prefer a well-drained soil, rich in humus. Dig in lots of organic matter, compost, animal manure or blood and bone, about a month before planting.',
-'Blueberry is one of the highest antioxidant capacities among all fruits, vegetables, spices and seasonings. Antioxidants are necessary to optimizing fitness by helping to combat the free radicals that can damage cellular structures as well as DNA. Blueberries are small blue to black colored fruits with a green flesh. They should be rich and bright in color with a natural bloom.',
-'Elderberry also known as Sambucus is from the family of Adoxaceae, which is a genus of flowering plant. Formerly placed in the honeysuckle family, the fruits when ripe are blackish purple in color and globose in shape. With seeds just about 3mm long, they are globular in shape and about 4 mm diameter, calyx persistent at the apex.',
-'Indian gooseberry fruits are of small size and light green in color. They have 6 vertical grooves on them. The taste of the fruit can be described as strong, harsh, and rough. This fruit is round shaped with vertical stripes and has a hard seed inside.',
-'Cranberries are low, creeping shrubs or vines up to 2 metres long and 5 to 20 centimetres in height; they have slender, wiry stems that are not thickly woody and have small evergreen leaves. The flowers are dark pink, with very distinct reflexed petals, leaving the style and stamens fully exposed and pointing forward. They are pollinated by bees. The fruit is a berry that is larger than the leaves of the plant; it is initially light green, turning red when ripe. It is edible, but with an acidic taste that usually overwhelms its sweetness.',
-'Huckleberry otherwise called hurtleberry is the native fruit of North America. The fruit appear in various dark colors such as red, blue and black and each berry measures 5-10mm in diameter. The fruit is completely edible and possesses a unique sweet taste. These berries are used as a major flavoring agent in juice, tea, soup, pudding, pie, pancakes and jam. It is also used for treating pain and healing heart disease and infections.',
-'Cherries are found in the wild and have been domesticated for centuries. There is a myriad of cherry types, resulting from new varieties and hybrids developed for hardiness and flavor. This fruit is found in Asia, Europe, and North America, with Iran, Turkey, United States, Germany, and Italy leading in the production of cherries.',
-'Goji, goji berry, or wolfberry is the fruit of either the Lycium barbarum or Lycium chinense, two closely related species of boxthorn in the nightshade family, Solanaceae. The family also includes the potato, tomato, eggplant, belladonna, chili pepper, and tobacco. The two species are native to Asia.'];
- /////Sourced from fruitsinfo.com
  
- const GAMELENGTH = 5;
- var testingOnSim = false; //flip to experience voice only skill on display device/simulator
+const GAMELENGTH = 5;
+var testingOnSim = false; //flip to experience voice only skill on display device/simulator
 
-/////////Intent handlers//////////////////////////////////////////////////////////////////////////
+//Helper shorthands for multi modal compatability
+const makePlainText = Alexa.utils.TextUtils.makePlainText;
+const makeImage = Alexa.utils.ImageUtils.makeImage;
+const makeRichText = Alexa.utils.TextUtils.makeRichText;
+
+/////////2. Entry point and intent handlers//////////////////////////////////////////////////////////////////////////
+//Alexa entry point
+exports.handler = function (event, context) {
+    const alexa = Alexa.handler(event, context);
+    alexa.registerHandlers(handlers);
+    alexa.execute();
+};
+
+//Intent handlers
 const handlers = {
     'LaunchRequest': function () {
         newSessionHandler.call(this);
@@ -366,6 +389,9 @@ const handlers = {
                 
                 var userFruit = this.event.request.intent.slots.fruitValue.value;
                 
+                console.log(objectArray)
+                console.log(userFruit)
+                
                 var iresult = matchChecker(objectArray, userFruit);
                 
                 if (iresult)
@@ -401,15 +427,59 @@ const handlers = {
     },
 };
 
-/////////Alexa Setup//////////////////////////////////////////////////////////////////////////
-exports.handler = function (event, context) {
-    const alexa = Alexa.handler(event, context);
-    alexa.registerHandlers(handlers);
-    alexa.execute();
-};
+////////3. Helper functions//////////////////////////////////////////////////////////////////////////
+//Generic functions///////////////////////////////////////////////////////////////////
+function supportsDisplay() {
+    var hasDisplay =
+    this.event.context &&
+    this.event.context.System &&
+    this.event.context.System.device &&
+    this.event.context.System.device.supportedInterfaces &&
+    this.event.context.System.device.supportedInterfaces.Display
 
-/////////Template makers//////////////////////////////////////////////////////////////////////////
-function bodyTemplateMaker(pBodyTemplateType, pImg, pTitle, pText1, pText2, pOutputSpeech, pReprompt, pHint)
+    return hasDisplay;
+}
+
+function handleUnknown() //For when Alexa doesn't understand the user
+{
+    var speechOutput = 'I am sorry. I did not quite get that one. Could you try again?';
+    var reprompt = 'Could you try again?';
+    
+    this.response.speak(speechOutput).listen(reprompt);
+    this.attributes['lastOutputResponse'] = speechOutput;
+        
+    this.emit(':responseReady');
+}
+
+function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function getRandomVal(pMin, pMax)
+{
+    return Math.floor((Math.random() * pMax) + pMin);
+}
+
+function generateRandResponse(pArray, pSpeechCon)
+{
+    var r = getRandomVal(0, pArray.length);
+
+    if (pSpeechCon)
+        return '<say-as interpret-as="interjection">' + pArray[r] + '</say-as>. ';
+    else
+        return pArray[r];
+}
+
+//Template makers
+function bodyTemplateMaker(pBodyTemplateType, pImg, pTitle, pText1, pText2, pOutputSpeech, pReprompt, pHint, pBackgroundIMG)
 {
     var bodyTemplate;
     
@@ -430,6 +500,9 @@ function bodyTemplateMaker(pBodyTemplateType, pImg, pTitle, pText1, pText2, pOut
     
     if (pImg)
         bodyTemplate.setImage(makeImage(pImg));
+        
+    if (pBackgroundIMG)
+        bodyTemplate.setBackgroundImage(makeImage(pBackgroundIMG));
 
     this.response.speak(pOutputSpeech)
                  .renderTemplate(template)
@@ -479,24 +552,14 @@ function listTemplateMaker(pArray, pType, pTitle, pOutputSpeech, pQuiz)
     this.emit(':responseReady');
 }
 
-/////////Helper functions//////////////////////////////////////////////////////////////////////////
-function speakOnly(pSpeechOutput, pReprompt) 
+//Skill specific funcions/////////////////////////////////////////////////////////
+function matchChecker(pArray, pCompare1)
 {
-    this.response.speak(pSpeechOutput);
-    
-    if (supportsDisplay.call(this) && !testingOnSim)
+    for (var i = 0 ; i < pArray.length; i++) //Find out which value
     {
-        this.response.listen(pReprompt || null); //Add reprompt if one has been passed in
-        
-        if (!pReprompt)
-            this.response.shouldEndSession(null); //No need for this if a reprompt has been used
+        if (pCompare1.toLowerCase() == pArray[i].name.toLowerCase() || pCompare1.toLowerCase() == pArray[i].token.toLowerCase())
+            return i; //Returns index of match for later use
     }
-    else
-        this.response.listen(pReprompt || 'What would you like to do?');
-        
-    this.attributes['lastOutputResponse'] = pSpeechOutput;
-        
-    this.emit(':responseReady');
 }
 
 function confirmExit()
@@ -512,13 +575,16 @@ function confirmExit()
     this.emit(':responseReady');
 }
 
-function matchChecker(pArray, pCompare1)
+function createArrayValue(pName, pImageURL, pInfo) //object creation
 {
-    for (var i = 0 ; i < pArray.length; i++) //Find out which value
-    {
-        if (pCompare1.toLowerCase() == pArray[i].name.toLowerCase() || pCompare1.toLowerCase() == pArray[i].token.toLowerCase())
-            return i; //Returns index of match for later use
-    }
+    var value = {
+        name        : pName,
+        imageURL     : pImageURL,
+        info : pInfo,
+        token : pName + 'Token',
+    };
+    
+    return value;
 }
 
 function handleAnswer(pCorrectAnswer, pUserAnswer, pArray, pGameFinished)
@@ -567,7 +633,7 @@ function handleAnswer(pCorrectAnswer, pUserAnswer, pArray, pGameFinished)
         resetAttributes.call(this);
             
         if (supportsDisplay.call(this) && !testingOnSim)
-            bodyTemplateMaker.call(this, 2, gameoverImage, cardTitle, '<b><font size="7">' + correctAnswersVal + ' / ' + pArray.length + ' correct.</font></b>', '<br/>' + speechOutput2, speechOutput, null, "tell me about berries"); 
+            bodyTemplateMaker.call(this, 2, gameoverImage, cardTitle, '<b><font size="7">' + correctAnswersVal + ' / ' + pArray.length + ' correct.</font></b>', '<br/>' + speechOutput2, speechOutput, null, "tell me about berries", mainImgBlurBG); 
         else
         {
             this.response.speak(speechOutput);
@@ -590,61 +656,6 @@ function resetAttributes()
     this.attributes['QuizOptionArray'] = null;
     this.attributes['correctAnswersNo'] = null;
     this.attributes['storedQuestion'] = null;
-}
-
-function showHome(pSpeechOutput) 
- {
-     resetAttributes.call(this);
-     
-     var speechOutput = pSpeechOutput || '';
-     var cardTitle = skillName;
-     
-     var actionText1 = '<action value="dictionary_token"><i>' + skillDictionaryName + '</i></action>'; //Selectable text
-     var actionText2 = '<action value="quiz_token"><i>' + skillQuizName + '</i></action>';
-     
-     speechOutput += 'Simply ask me to provide information about berries from the ' + skillDictionaryName + '.'; 
-
-     if (supportsDisplay.call(this) && !testingOnSim)
-     {
-        speechOutput += ' However, if you are feeling lucky, ask for a quick game of ' + skillQuizName + '.';
-        var text = '<u><font size="7">' + skillName + '</font></u><br/><br/>Simply ask me to provide information about berries from the ' + actionText1 + '. However, if you are feeling lucky, ask for a quick game of ' + actionText2 + '.'; 
-        bodyTemplateMaker.call(this, 3, mainImage, cardTitle, null, text, speechOutput, null); 
-     }
-    else
-        speakOnly.call(this, speechOutput + ' What would you like to do?');
- }
-
-function createArrayValue(pName, pImageURL, pInfo, pOrigin) //object creation
-{
-    var value = {
-        name        : pName,
-        imageURL     : pImageURL,
-        info : pInfo,
-    };
-    
-    return value;
-}
-
-function supportsDisplay() {
-    var hasDisplay =
-    this.event.context &&
-    this.event.context.System &&
-    this.event.context.System.device &&
-    this.event.context.System.device.supportedInterfaces &&
-    this.event.context.System.device.supportedInterfaces.Display
-
-    return hasDisplay;
-}
-
-function handleUnknown() //For when Alexa doesn't understand the user
-{
-    var speechOutput = 'I am sorry. I did not quite get that one. Could you try again?';
-    var reprompt = 'Could you try again?';
-    
-    this.response.speak(speechOutput).listen(reprompt);
-    this.attributes['lastOutputResponse'] = speechOutput;
-        
-    this.emit(':responseReady');
 }
 
 function generateNewQuestion(pSpeechOutput, pQuestionNo)
@@ -727,10 +738,15 @@ function newSessionHandler() //Called every intent to handle modal/one shot utte
 {
     if (this.event.session.new)
     {
+        var topicNames = [];
+        
+        for (var i = 0; i < Object.keys(topicData).length; i++)
+            topicNames[i] = Object.keys(topicData)[i];
+
         var categoryArray = [];
         
-        for (var i = 0 ; i < arrayNames.length; i++) //We create a new set of the specified category values here
-            categoryArray[i] = createArrayValue(arrayNames[i], arrayImages[i], arrayInfo[i]);
+        for (var i = 0 ; i < Object.keys(topicData).length; i++) //We create a new set of the specified category values here
+            categoryArray[i] = createArrayValue(topicNames[i], topicData[topicNames[i]].imgURL, topicData[topicNames[i]].info);
         
         this.attributes['mainArray'] = shuffle(categoryArray); //And then randomise them each time the skill starts
     }
@@ -741,7 +757,7 @@ function showSpecificItemInfo(pIndex, pArray) //User has selected a single fruit
     this.attributes['selectedValueIndex'] = pIndex;
     
     if (supportsDisplay.call(this) && !testingOnSim)
-        bodyTemplateMaker.call(this, 3, pArray[pIndex].imageURL, capitalizeFirstLetter(pArray[pIndex].name), '<action value="read_info_token"><b>Read</b></action> | <action value="dictionary_token"><b>Back</b></action><br/>', pArray[pIndex].info, 'Here is some information about ' + pArray[pIndex].name + '.', null, 'test me on ' + categoryPlural);
+        bodyTemplateMaker.call(this, 3, pArray[pIndex].imageURL, capitalizeFirstLetter(pArray[pIndex].name), '<action value="read_info_token"><b>Read</b></action> | <action value="dictionary_token"><b>Back</b></action><br/>', pArray[pIndex].info, 'Here is some information about ' + pArray[pIndex].name + '.', null, 'test me on ' + categoryPlural, mainImgBlurBG);
     else
     {
     	var reprompt = 'Which ' + categorySingular + ' would you like to hear about now?';
@@ -762,31 +778,18 @@ function endSkill()
     this.emit(':responseReady');
 }
 
-//////////Code support functions//////////////////////////////////////////////////////////////////////////
-function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-}
-
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function getRandomVal(pMin, pMax)
-{
-    return Math.floor((Math.random() * pMax) + pMin);
-}
-
-function generateRandResponse(pArray, pSpeechCon)
-{
-    var r = getRandomVal(0, pArray.length);
-
-    if (pSpeechCon)
-        return '<say-as interpret-as="interjection">' + pArray[r] + '</say-as>. ';
-    else
-        return pArray[r];
-    
-}
+/*
+Royalty free berry image URLS
+https://www.pexels.com/photo/food-forest-blueberries-raspberries-87818/
+https://pixabay.com/en/medal-gold-design-2163347/
+https://pixabay.com/en/medal-silver-design-2163349/
+https://www.pexels.com/photo/healthy-red-fruits-sweet-52536/
+https://www.pexels.com/photo/blackberries-on-table-892808/
+https://www.pexels.com/photo/berry-delicious-food-fruit-583840/
+https://www.pexels.com/photo/close-up-photography-of-grey-round-fruits-139749/
+https://www.pexels.com/photo/black-round-fruits-at-daytime-51962/
+https://www.pexels.com/photo/yellow-round-small-fruit-54332/
+https://www.pexels.com/photo/close-up-of-strawberries-306800/
+https://www.pexels.com/photo/food-fruits-blueberries-huckleberries-7024/
+https://www.pexels.com/photo/pile-of-cherry-fruit-175727/
+https://pixabay.com/en/goji-berry-dried-fruits-vitamins-3162716/*/
